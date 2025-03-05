@@ -11,7 +11,7 @@ export const Questions = () => {
 
       <div className="flex items-center justify-center gap-2 border border-primary col-start-2 col-span-1 py-5 rounded-[80px] cursor-pointer hover:transition-transform hover:duration-200 hover:bg-blue-50">
           <h3 className="text-[16px] text-gray-100 font-medium leading-[120%]">Підібрати подарунок</h3>
-          <img src="src\image\Questions\present.png" alt="present icon" />
+          <img src="/src/image/Questions/present.png" alt="present icon" />
         </div>
     </div>
   )

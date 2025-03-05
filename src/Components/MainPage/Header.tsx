@@ -23,26 +23,26 @@ export const Header = () => {
           </div>
 
           <img 
-            src='src\image\header\header-logo.svg' 
+            src='./src/image/header/header-logo.svg' 
             alt="header-logo" 
             className="h-[54px] flex-1 pt-2"/>
 
           <div className="pr-[16px] flex gap-[40px] flex-1 justify-end items-center">
             <a href="">
               <img 
-                src="src\image\header\user-login.png" 
+                src='src/image/header/user-login.png'
                 alt="user-logo-icon" 
                 className="hover:transition-transform hover:duration-200 hover:scale-110"/>
             </a>
             <a href="">
             <img
-              src="src\image\header\cart-icon.png" 
+              src="./src/image/header/cart-icon.png" 
               alt="user-logo-icon" 
               className="hover:transition-transform hover:duration-200 hover:scale-110"/>
             </a>
             <a href="">
             <img 
-              src="src\image\header\ask-icon.png" 
+              src="src/image/header/ask-icon.png" 
               alt="user-logo-icon" 
               className="hover:transition-transform hover:duration-200 hover:scale-110"/>
             </a>

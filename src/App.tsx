@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 
-function App() {
+export const App = () => {
   const [world, setWorld] = useState('world');
   const [counts, setCounts] = useState({
     sex: 0,
@@ -43,6 +43,7 @@ function App() {
           <button className="block" onClick={clickHandle}>Drugs</button>
           <button className="block" onClick={clickHandle}>Rock n Roll</button>
           <button className="block" onClick={clickHandle}>X</button>
+          <button className='block' onClick={clickHandle}>Zoic</button>
         </div>
 
         <div className="counterContainer">
@@ -54,5 +55,3 @@ function App() {
     </>
   );
 }
-
-export default App;

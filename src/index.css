@@ -1,0 +1,24 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3835cf;
+	--color-gray-100: #000;
+	--color-gray-90: #17191c;
+	--color-gray-80: #353840;
+	--color-gray-70: #61656d;
+	--color-gray-60: #858b9b;
+	--color-gray-50: #979cab;
+	--color-gray-30: #b9b9cf;
+	--color-gray-20: #d9dced;
+	--color-white: #fff;
+	--color-light-violet: #c293ff;
+	--color-blue-for-card-and-states: #4a69ff;
+	--color-violet-for-card-and-states: #800de0;
+	--color-header-color: #7e3dd4;
+	--color-success: #06de83;
+	--color-error: #ff3b30;
+}

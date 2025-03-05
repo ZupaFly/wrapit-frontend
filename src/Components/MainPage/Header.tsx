@@ -1,3 +1,10 @@
+import askIcon from '../../image/header/ask-icon.png';
+import cartIcon from '../../image/header/cart-icon.png';
+import headerLogo from '../../image/header/header-logo.svg';
+import wrapitMainLogo from '../../image/header/wraplt-main-logo.png';
+import userLogin from '../../image/header/user-login.png';
+
+
 export const Header = () => {
   return (
     <div className="h-screen mb-20">
@@ -23,26 +30,26 @@ export const Header = () => {
           </div>
 
           <img 
-            src="/src/image/header/header-logo.svg" 
+            src={headerLogo} 
             alt="header-logo" 
             className="h-[54px] flex-1 pt-2"/>
 
           <div className="pr-[16px] flex gap-[40px] flex-1 justify-end items-center">
             <a href="#">
               <img 
-                src="/src/image/header/user-login.png"
+                src={userLogin}
                 alt="user-logo-icon" 
                 className="transition-all duration-200 hover:scale-110"/>
             </a>
             <a href="#">
               <img
-                src="/src/image/header/cart-icon.png" 
+                src={cartIcon} 
                 alt="cart-icon" 
                 className="transition-all duration-200 hover:scale-110"/>
             </a>
             <a href="#">
               <img 
-                src="/src/image/header/ask-icon.png" 
+                src={askIcon} 
                 alt="ask-icon" 
                 className="transition-all duration-200 hover:scale-110"/>
             </a>
@@ -55,7 +62,7 @@ export const Header = () => {
         </nav>
 
         <div className="flex justify-center items-center">
-          <img className="mx-auto" src="/src/image/header/wraplt-main-logo.png" alt="wrapit-main-logo" />
+          <img className="mx-auto" src={wrapitMainLogo} alt="wrapit-main-logo" />
         </div>
 
       </div>

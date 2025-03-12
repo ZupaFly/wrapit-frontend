@@ -8,7 +8,7 @@ export const SurveyResult = () => {
   return (
     <div className="h-screen bg-light-violet">
         <button
-        onClick={() => navigate("/")} // Повертаємося на головну
+        onClick={() => navigate("/")}
         className="h-[40px] w-[40px] bg-center bg-cover cursor-pointer mt-10 ml-10 border border-gray-20 rounded-full"
         style={{ backgroundImage: `url(${backButton})` }}
       >

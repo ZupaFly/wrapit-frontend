@@ -5,7 +5,7 @@ import { peoplelist } from '../../utils/peoplelist';
 
 type SurveyContext = {
   answers: { question1: string, question4: string };
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const LastQuestion = () => {

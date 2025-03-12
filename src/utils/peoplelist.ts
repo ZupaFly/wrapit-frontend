@@ -1,6 +1,6 @@
-// import { People } from '../types/People';
+import { PeopleList } from '../types/People';
 
-export const peoplelist = {
+export const peoplelist: PeopleList = {
   startQuestion: {
     title: 'Кому ви шукаєте подарунок?',
     attributes: ['man', 'woman', 'kids', 'teenager', 'couple', 'boss', 'parents', 'friend'],

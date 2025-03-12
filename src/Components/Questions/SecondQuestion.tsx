@@ -4,8 +4,8 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { peoplelist } from "../../utils/peoplelist";
 
 type SurveyContext = {
-  answers: { question1: string }; // Тут зберігаємо відповідь на перше питання
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  answers: { question1: string, question2: string };
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const SecondQuestion = () => {
@@ -14,8 +14,7 @@ const navigate = useNavigate();
 
   const category = answers.question1; 
 
-  // Отримуємо правильне питання з peoplelist в залежності від категорії
-  const quest2 = peoplelist[category]?.quest2;
+  const quest2 = peoplelist[category as keyof typeof peoplelist].quest2;
 
   if (!quest2) {
     return <div>Помилка: не знайдено питання для цієї категорії.</div>;
@@ -31,7 +30,7 @@ const navigate = useNavigate();
           </div>
 
           {/* Виводимо опції, якщо вони є */}
-          {quest2.values.map((value, index) => (
+          {quest2.values.map((value:string, index: number) => (
             <label key={index} className="flex items-center text-[16px]">
               <input
                 type="radio"

@@ -5,7 +5,7 @@ import { peoplelist } from '../../utils/peoplelist';
 
 type SurveyContext = {
   answers: { question1: string };
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const FirstQuestion = () => {
@@ -29,8 +29,9 @@ const navigate = useNavigate();
                 type="radio"
                 name="question1"
                 value={value}
-                checked={answers.question1 === quest1.attributes[index]} // Перевіряємо саме атрибут
-                onChange={(e) => handleChange(e, "question1", quest1.attributes[index])}
+                checked={answers.question1 === quest1.attributes[index]}
+                onChange={(e) => 
+                  handleChange(e, "question1", quest1.attributes[index])}
                 className="mr-2"
               />
               {value} 

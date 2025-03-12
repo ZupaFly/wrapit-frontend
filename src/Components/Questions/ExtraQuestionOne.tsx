@@ -4,8 +4,8 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { peoplelist } from '../../utils/peoplelist';
 
 type SurveyContext = {
-  answers: { question1: string };
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  answers: { question1: string, question5: string };
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const ExtraQuestionOne = () => {
@@ -23,7 +23,7 @@ const navigate = useNavigate();
             <h3 className='text-[32px]'>{quest5.title}</h3>
             <div>1 / 2</div>
         </div>
-          {quest5.values.map((value, index) => (
+          {quest5.values.map((value: string, index: number) => (
             <label key={index} className="flex items-center text-[16px]">
               <input
                 type="radio"

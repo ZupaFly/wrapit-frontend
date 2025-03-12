@@ -4,17 +4,18 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { peoplelist } from "../../utils/peoplelist";
 
 type SurveyContext = {
-  answers: { question1: string };
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  answers: { question1: string, question3: string };
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const ThirdQuestion = () => {
   const { answers, handleChange } = useOutletContext<SurveyContext>();
   const navigate = useNavigate();
 
-  const category = answers.question1; 
+  const category = answers.question1;
 
-  const quest3 = peoplelist[category]?.quest3;
+  const quest3 = peoplelist[category as keyof typeof peoplelist].quest3;
+
 
   if (!quest3) {
     return <div>Помилка: не знайдено питання для цієї категорії.</div>;
@@ -29,7 +30,7 @@ export const ThirdQuestion = () => {
             <div>3 / 4</div>
           </div>
 
-          {quest3.values.map((value, index) => (
+          {quest3.values.map((value: string, index: number) => (
             <label key={index} className="flex items-center text-[16px]">
               <input
                 type="radio"

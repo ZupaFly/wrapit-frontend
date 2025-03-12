@@ -4,8 +4,8 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { peoplelist } from '../../utils/peoplelist';
 
 type SurveyContext = {
-  answers: { question1: string };
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string) => void;
+  answers: { question1: string, question6: string };
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
 export const ExtraQuestionTwo = () => {

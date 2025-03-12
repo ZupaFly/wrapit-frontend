@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { Link } from 'react-router-dom';
 import presentIcon from '../../image/Questions/present.png'; 
 
 export const Questions = () => {
@@ -11,10 +13,13 @@ export const Questions = () => {
         </ul>
       </div>
 
-      <div className="flex items-center justify-center gap-2 border border-primary col-start-2 col-span-1 py-5 rounded-[80px] cursor-pointer hover:transition-transform hover:duration-200 hover:bg-blue-50">
-          <h3 className="text-[16px] text-gray-100 font-medium leading-[120%]">Підібрати подарунок</h3>
+      <Link to='/survey' className="col-start-2 col-span-1">
+        <div className="flex items-center justify-center gap-2 border border-primary py-5 rounded-[80px] cursor-pointer hover:transition-transform hover:duration-200 hover:bg-blue-50">
+          <span className="text-[16px] text-gray-100 font-medium leading-[120%]">Підібрати подарунок</span>
           <img src={presentIcon} alt="present icon" />
         </div>
+    </Link>
+
     </div>
   )
 }

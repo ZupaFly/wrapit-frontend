@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import footerLogo from '../../image/footer/WRAPLT-logo-footer.png';
 
 export const Footer = () => {

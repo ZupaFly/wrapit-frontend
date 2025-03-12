@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 export const Main = () => {
   return (
     <div className="grid grid-cols-6 grid-rows-2 gap-[24px] pl-10 pr-10 mb-14">
@@ -32,7 +33,7 @@ export const Main = () => {
       <div className="flex flex-row gap-4 col-span-4 rounded-[40px] bg-violet-for-card-and-states p-6">
         <div>
           <h2 className="text-white text-[32px] leading-[130%] font-medium mb-4">Швидка доставка замовлення</h2>
-          <h3 className="text-white text-[16px] leading-[140%] font-normal">Ми гарантуємо оперативну доставку,<br /> щоб ваш подарунок прибув вчасно! <br />Обирайте зручний спосіб отримання: кур'єрська доставка, самовивіз або <br /> електронні сертифікати в лічені хвилини.</h3>
+          <h3 className="text-white text-[16px] leading-[140%] font-normal">Ми гарантуємо оперативну доставку,<br /> щоб ваш подарунок прибув вчасно! <br />Обирайте зручний спосіб отримання: кур&apos;єрська доставка, самовивіз або <br /> електронні сертифікати в лічені хвилини.</h3>
         </div>
       <div className="w-[100%] h-[100%] bg-cover bg-center bg-[url('/src/image/main/delivery-truck-main.png')] rounded-[32px]">
       </div>

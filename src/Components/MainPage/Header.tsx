@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import askIcon from '../../image/header/ask-icon.png';
 import cartIcon from '../../image/header/cart-icon.png';
 import headerLogo from '../../image/header/header-logo.svg';
@@ -8,7 +9,7 @@ import userLogin from '../../image/header/user-login.png';
 export const Header = () => {
   return (
     <div className="h-screen mb-20">
-      <div className="flex flex-col bg-light-violet h-[50vh] justify-between mb-[80px]">
+      <div className="flex flex-col bg-light-violet h-[60vh] justify-between mb-[40px]">
 
         <nav className="mt-[40px] ml-[40px] mr-[40px] flex flex-row h-[61px] bg-header-color justify-between rounded-[138px] items-center">
 
@@ -32,7 +33,7 @@ export const Header = () => {
           <img 
             src={headerLogo} 
             alt="header-logo" 
-            className="h-[54px] flex-1 pt-2"/>
+            className="h-[54px] flex-1 py-2"/>
 
           <div className="pr-[16px] flex gap-[40px] flex-1 justify-end items-center">
             <a href="#">

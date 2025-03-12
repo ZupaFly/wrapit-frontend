@@ -1,5 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
 export const Shop = () => {
   return (
-    <div>Hello Shop</div>
+    <div>The shop is under construction :)</div>
   )
 }

@@ -4,12 +4,13 @@ export type QuestionBlock = {
   values: string[];
   quest3?: QuestionBlock;
   quest2?: QuestionBlock;
+  image: string | Record<string, string>;
 };
+
 
 export type ExtendedQuestionBlock = {
   quest2?: QuestionBlock;
   quest3?: QuestionBlock;
-  quest4?: QuestionBlock;
 };
 
 export type PeopleList = {

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { peoplelist } from '../../utils/peoplelist';
@@ -16,8 +15,8 @@ const navigate = useNavigate();
   const quest1 = peoplelist.startQuestion;
 
   return (
-    <>
-      <div className='grid grid-cols-5 gap-[24px] mt-10 ml-10 mr-10 mb-20'>
+    <div 
+      className='grid grid-cols-5 gap-[24px] mt-10 ml-10 mr-10 mb-20'>
         <div className="flex flex-col gap-4 col-span-3 bg-white rounded-[32px] p-8">
           <div className="flex justify-between">
             <h3 className='text-[32px]'>{peoplelist.startQuestion.title}</h3>
@@ -50,9 +49,9 @@ const navigate = useNavigate();
             Далі
           </button>
         </div>
-        <div 
-          className="bg-center bg-cover bg-[url('/src/image/survey-main/main/mainSurvayPage.png')] col-span-2 rounded-[32px]"></div>
-      </div>
-    </>
+      <div 
+        className="bg-center bg-cover col-span-2 rounded-[32px]"
+        style={{backgroundImage: `url(${quest1.image})`}}></div>
+    </div>
   );
 };

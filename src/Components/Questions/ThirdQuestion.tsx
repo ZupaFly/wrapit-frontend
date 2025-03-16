@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { peoplelist } from "../../utils/peoplelist";
@@ -22,7 +21,6 @@ export const ThirdQuestion = () => {
   }
 
   return (
-    <>
       <div className="grid grid-cols-5 gap-[24px] mt-10 ml-10 mr-10 mb-20">
         <div className="flex flex-col gap-4 col-span-3 bg-white rounded-[32px] p-8">
           <div className="flex justify-between">
@@ -38,30 +36,29 @@ export const ThirdQuestion = () => {
                 value={value}
                 checked={answers.question3 === quest3.attributes[index]}
                 onChange={(e) => handleChange(e, "question3", quest3.attributes[index])}
-                className="mr-2"
-              />
-              {value}
-            </label>
-          ))}
+              className="mr-2"
+            />
+            {value}
+          </label>
+        ))}
 
-          <button
-            className={`mt-4 p-2 text-[16px] text-white rounded-[120px] col-span-3 w-full cursor-pointer 
-            ${answers.question3 ? "bg-primary" : "bg-gray-60 cursor-not-allowed"}`}
-            disabled={!answers.question3}
-            onClick={() => {
-              if (answers.question3) {
-                navigate("/survey/4");
-              }
-            }}
-          >
-            Далі
-          </button>
-        </div>
-
-        <div
-          className="bg-center bg-cover bg-[url('/src/image/survey-main/main/mainSurvayPage.png')] col-span-2 rounded-[32px]"
-        ></div>
+        <button
+          className={`mt-4 p-2 text-[16px] text-white rounded-[120px] col-span-3 w-full cursor-pointer 
+          ${answers.question3 ? "bg-primary" : "bg-gray-60 cursor-not-allowed"}`}
+          disabled={!answers.question3}
+          onClick={() => {
+            if (answers.question3) {
+              navigate("/survey/4");
+            }
+          }}
+        >
+          Далі
+        </button>
       </div>
-    </>
+
+      <div
+        className="bg-center bg-cover col-span-2 rounded-[32px]"
+        style={{backgroundImage: `url(${quest3.image})`}}></div>
+    </div>
   );
 };

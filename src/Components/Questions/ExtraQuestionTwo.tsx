@@ -1,10 +1,16 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { peoplelist } from '../../utils/peoplelist';
 
 type SurveyContext = {
-  answers: { question1: string, question6: string };
+  answers: { 
+    question1: string, 
+    question2: string,
+    question3: string, 
+    question4: string,
+    question5: string, 
+    question6: string,
+  };
   handleChange: (event: React.ChangeEvent<HTMLInputElement>, category: string, attribute?: string) => void;
 };
 
@@ -14,9 +20,12 @@ export const ExtraQuestionTwo = () => {
 const navigate = useNavigate();
 
   const quest6 = peoplelist.extraQuestionTwo;
+  const identifier = answers.question1;
+  const imageUrl = typeof quest6.image === "object" && quest6.image !== null
+    ? quest6.image[identifier]
+    : quest6.image;
 
   return (
-    <>
       <div className='grid grid-cols-5 gap-[24px] mt-10 ml-10 mr-10 mb-20'>
         <div className="flex flex-col gap-4 col-span-3 bg-white rounded-[32px] p-8">
           <div className="flex justify-between">
@@ -42,7 +51,7 @@ const navigate = useNavigate();
             disabled={!answers.question6}
             onClick={() => {
               if (answers.question6) {
-                navigate("/survey/finalResult");
+                navigate("/survey/result");
               }
             }}
           >
@@ -50,8 +59,8 @@ const navigate = useNavigate();
           </button>
         </div>
         <div 
-          className="bg-center bg-cover bg-[url('/src/image/survey-main/main/mainSurvayPage.png')] col-span-2 rounded-[32px]"></div>
+          className="bg-center bg-cover col-span-2 rounded-[32px]"
+          style={{backgroundImage: `url(${imageUrl})`}}></div>
       </div>
-    </>
   );
 };

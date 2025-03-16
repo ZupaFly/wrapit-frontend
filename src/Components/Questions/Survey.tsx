@@ -7,7 +7,6 @@ import backButton from '../../image/survey-main/button/Button.png'
 export const Survey = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const step = parseInt(location.pathname.split('/')[2], 10);
 
   const [answers, setAnswers] = useState(() => {
     return JSON.parse(localStorage.getItem("surveyAnswers") || "{}") || {
@@ -19,8 +18,6 @@ export const Survey = () => {
       question6: "",
     };
   });
-
-  console.log(answers);
 
   useEffect(() => {
     if (location.pathname.endsWith("/survey")) {
@@ -35,7 +32,14 @@ export const Survey = () => {
   useEffect(() => {
     return () => {
       localStorage.removeItem("surveyAnswers");
-      setAnswers({ question1: "", question2: "", question3: "", question4: "" });
+      setAnswers({ 
+        question1: "",
+        question2: "",
+        question3: "",
+        question4: "",
+        question5: "",
+        question6: "",
+      });
     };
   }, []);
 
@@ -51,23 +55,17 @@ export const Survey = () => {
   };
 
   const handleBack = () => {
-    if (step === 1) {
-      navigate("/", { replace: true });
-    } else {
-      navigate(`/survey/${step - 1}`, { replace: true });
-    }
+    navigate(-1);
   };
 
   return (
-    <div className="h-screen bg-light-violet">
+    <div className={`h-screen ${location.pathname === "/survey/result" ? "bg-white" : "bg-light-violet"}`}>
 
     <button
       onClick={handleBack}
       className="h-[40px] w-[40px] bg-center bg-cover cursor-pointer mt-10 ml-10 border border-gray-20 rounded-full"
       style={{
-        backgroundImage: `url(${backButton})`,
-        visibility: location.pathname.includes("/survey/result") || location.pathname.includes("/survey/extra1") ? 'hidden' : 'visible',
-        pointerEvents: location.pathname.includes("/survey/result") || location.pathname.includes("/survey/extra1") ? 'none' : 'auto',
+        backgroundImage: `url(${backButton})`
       }}
   />
 

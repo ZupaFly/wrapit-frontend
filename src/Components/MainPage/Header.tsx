@@ -2,8 +2,17 @@
 import askIcon from '../../image/header/ask-icon.png';
 import cartIcon from '../../image/header/cart-icon.png';
 import headerLogo from '../../image/header/header-logo.svg';
-import wrapitMainLogo from '../../image/header/wraplt-main-logo.png';
 import userLogin from '../../image/header/user-login.png';
+import userSignIn from '../../image/icons/signin.png'
+import { Link } from 'react-router-dom';
+import { User } from '../../types/User';
+
+const user: User = {
+  id: null,
+  firstName: 'Dima',
+  phoneNumber: 0,
+  lastName: ''
+}
 
 
 export const Header = () => {
@@ -36,12 +45,22 @@ export const Header = () => {
             className="h-[54px] flex-1 py-2"/>
 
           <div className="pr-[16px] flex gap-[40px] flex-1 justify-end items-center">
-            <a href="#">
-              <img 
-                src={userLogin}
-                alt="user-logo-icon" 
-                className="transition-all duration-200 hover:scale-110"/>
-            </a>
+
+          {!user.id
+            ? (<Link to={'/registration/signin'}>
+                <img 
+                  src={userSignIn}
+                  alt="user-logo-icon" 
+                  className="transition-all duration-200 hover:scale-110"/>
+              </Link>)
+            : (<Link to={`/registration/login`}>
+                  <img 
+                    src={userLogin}
+                    alt="user-logo-icon" 
+                    className="transition-all duration-200 hover:scale-110"/>
+              </Link>
+          )}
+
             <a href="#">
               <img
                 src={cartIcon} 
@@ -63,7 +82,8 @@ export const Header = () => {
         </nav>
 
         <div className="flex justify-center items-center">
-          <img className="mx-auto" src={wrapitMainLogo} alt="wrapit-main-logo" />
+          {/* <img className="mx-auto" src={wrapitMainLogo} alt="wrapit-main-logo" /> */}
+          <h1 className='uppercase text-white text-[24vw] align-bottom'>wrapIt</h1>
         </div>
 
       </div>

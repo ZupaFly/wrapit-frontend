@@ -1,15 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Header } from './Header';
-import { Main } from './Main';
+import { HeaderNav } from './HeaderNav';
 import { Footer } from './Footer';
-import { Questions } from './Questions';
+import { Outlet } from 'react-router-dom';
 
 export const MainPage = () => {
+
   return (
     <>
-      <Header />
-      <Main />
-      <Questions />
+      <HeaderNav />
+        <Outlet />
       <Footer />
     </>
   )

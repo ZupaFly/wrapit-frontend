@@ -24,42 +24,61 @@ import { CheckOrderStatus } from "./Components/UserProfile/CheckOrderStatus";
 import { ProfileLogOf } from "./Components/UserProfile/ProfilelogOff";
 import { ProfileNoLogin } from "./Components/UserProfile/ProfileNoLogin";
 import { FeedBackForm } from "./Components/Help/FeedBackForm";
+import { PassRestoration } from "./Components/Login/PassRestoration";
+import { AdminPageAuth } from "./Components/AdminPage/AdminPageAuth";
+import { AdminMainPage } from "./Components/AdminPage/AdminMainPage";
+import { AdminAuthProvider } from "./Components/AdminPage/AdminAuthContext";
+import { AddItem } from "./Components/AdminPage/AdminItems.tsx/AddItem";
+import { ChangeItem } from "./Components/AdminPage/AdminItems.tsx/ChageItem";
+import { RemoveItem } from "./Components/AdminPage/AdminItems.tsx/RemoveItem";
+import { AllItem } from "./Components/AdminPage/AdminItems.tsx/AllItems";
 
 export const Root = () => {
   return (
     <Provider store={store}>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />}>
-            <Route index element={<HomePage />} />
-            <Route path="profile" element={<ProfileMain />}>
-              <Route path="personalinfo" element={<PersonalInformation />}/>
-              <Route path="changepass" element={<ChangePassword />}/>
-              <Route path="chekorder" element={<CheckOrderStatus />}/>
-              <Route path="logoff" element={<ProfileLogOf />}/>
-              <Route path="errorLogin" element={<ProfileNoLogin />}/>
+      <AdminAuthProvider>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />}>
+              <Route index element={<HomePage />} />
+              <Route path="profile" element={<ProfileMain />}>
+                <Route path="personalinfo" element={<PersonalInformation />}/>
+                <Route path="changepass" element={<ChangePassword />}/>
+                <Route path="chekorder" element={<CheckOrderStatus />}/>
+                <Route path="logoff" element={<ProfileLogOf />}/>
+                <Route path="errorLogin" element={<ProfileNoLogin />}/>
+              </Route>
+              <Route path="shop" element={<Shop />}/>
+              <Route path="feedback" element={<FeedBackForm />}/>
+              <Route path="admin" element={<AdminPageAuth />}>
+                <Route path="adminmain" element={<AdminMainPage/>}>
+                  <Route path="createitem" element={<AddItem />} />
+                  <Route path="changeitem" element={<ChangeItem />} />
+                  <Route path="deleteitem" element={<RemoveItem />} />
+                  <Route path="listofitems" element={<AllItem />} />
+                </Route>
+              </Route>
             </Route>
-            <Route path="shop" element={<Shop />}/>
-            <Route path="feedback" element={<FeedBackForm />}/>
-          </Route>
 
-          <Route path="/registration" element={<Registration />}>
-            <Route path="login" element={<Login />} />
-            <Route path="signin" element={<SignIn />} />
-          </Route>
+            <Route path="/registration" element={<Registration />}>
+              <Route path="login" element={<Login />} />
+              <Route path="passrestoration" element={<PassRestoration />} />
+              <Route path="signin" element={<SignIn />} />
+            </Route>
 
-          <Route path="/survey" element={<Survey />}>
-            <Route path="1" element={<FirstQuestion />} />
-            <Route path="2" element={<SecondQuestion />} />
-            <Route path="3" element={<ThirdQuestion />} />
-            <Route path="4" element={<LastQuestion />} />
-            <Route path="extra1" element={<ExtraQuestionOne />} />
-            <Route path="extra2" element={<ExtraQuestionTwo />} />
-            <Route path="result" element={<SurveyResult/>}/>
-          </Route>
+            <Route path="/survey" element={<Survey />}>
+              <Route path="1" element={<FirstQuestion />} />
+              <Route path="2" element={<SecondQuestion />} />
+              <Route path="3" element={<ThirdQuestion />} />
+              <Route path="4" element={<LastQuestion />} />
+              <Route path="extra1" element={<ExtraQuestionOne />} />
+              <Route path="extra2" element={<ExtraQuestionTwo />} />
+              <Route path="result" element={<SurveyResult/>}/>
+            </Route>
 
-        </Routes>
-      </HashRouter>
+          </Routes>
+        </HashRouter>
+      </AdminAuthProvider>
     </Provider>
   );
 };

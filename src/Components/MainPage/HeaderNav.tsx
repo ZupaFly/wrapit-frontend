@@ -9,7 +9,7 @@ import { User } from '../../types/User';
 import { useEffect, useState } from 'react';
 
 const user: User = {
-  id: 123,
+  id: 21,
   firstName: 'Dima',
   phoneNumber: 0,
   lastName: ''
@@ -28,7 +28,7 @@ export const HeaderNav = () => {
     <div className={`mb-5 flex flex-col
       ${homePage
         ? 'h-[60vh] bg-light-violet'
-        : 'box-border flex-grow-1'
+        : 'box-border'
       }`}>
 
 

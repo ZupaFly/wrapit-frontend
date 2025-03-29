@@ -36,9 +36,9 @@ export const ProfileMain = () => {
     };
 
   return (
-    <div className="px-10 min-h-full">
+    <div className="px-10 flex-grow-1">
       <h2 className="uppercase mt-15 mb-10 text-gray-100 text-[64px] font-bold">кабінет</h2>
-        <div className="h-full w-full flex flex-row gap-25">
+        <div className="w-full flex flex-row gap-25">
           <ul className="flex flex-col">
             <Link 
               to={'./personalinfo'} 

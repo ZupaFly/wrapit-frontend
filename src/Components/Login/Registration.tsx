@@ -5,12 +5,13 @@
 import { useEffect, useState } from 'react';
 
 export const Registration = () => {
+  const [passStep, setPassStep] = useState(1);
   const [loginButton, setLoginButton] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
   const user = {
-    id: 13,
+    id: 12,
   }
 
   useEffect (() => {
@@ -25,9 +26,23 @@ export const Registration = () => {
     }
   }
 
+  const handleStep = () => {
+    setPassStep((prev) => prev + 1);
+  };
+
   const handleBack = () => {
-    navigate(-1);
-  }
+    if (location.pathname.endsWith('passrestoration')) {
+      if (passStep > 1) {
+        setPassStep((prev) => prev - 1);
+      } else {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
+  };
+
+
   return (
     <div className="grid grid-cols-5 bg-white h-screen gap-6">
       <div className='col-span-2 ml-10 relative'>
@@ -38,7 +53,7 @@ export const Registration = () => {
             backgroundImage: `url(${backButton})`
           }}
         />
-        <Outlet />
+        <Outlet context={{ passStep, handleStep }} />
 {!loginButton &&
            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col'>
            <button 

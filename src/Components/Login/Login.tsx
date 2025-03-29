@@ -127,7 +127,11 @@ export const Login = () => {
                 type="checkbox" />
               <h5 className="p-2 text-[16px] text-gray-80 font-normal">Запам&apos;ятати мене</h5>
             </div>
-            <h4 className="border-b text-[16px] text-gray-80 font-normal">Не пам’ятаю пароль</h4>
+            <div
+              onClick={() => navigate('/registration/passrestoration')}
+              className="border-b text-[16px] text-gray-80 font-normal cursor-pointer">
+                Не пам’ятаю пароль
+            </div>
           </div>
         </div>
         <button 

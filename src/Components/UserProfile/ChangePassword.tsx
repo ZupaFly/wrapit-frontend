@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
+import success from '../../image/icons/success.png';
 import { ProfileNoLogin } from "./ProfileNoLogin";
 import hidePass from '../../image/icons/hidePassword.png';
 import showPass from '../../image/icons/showPassword.png';
@@ -39,7 +40,7 @@ export const ChangePassword: React.FC = () => {
   return idCheck && linkCheck === 2
   ? 
   <>
-    <form className="flex flex-col">
+    <form className="flex flex-col max-[1024px]:mt-10 max-[1024px]:w-full">
       <div className="mb-6">
         <h5 className="text-gray-90 text-[16px] font-normal mb-1">Поточний пароль</h5>
         <div className="relative">
@@ -51,7 +52,7 @@ export const ChangePassword: React.FC = () => {
             // onChange={handleFormChange}
             placeholder="Введіть поточний пароль"
             autoComplete="new-password"
-            className={`px-4 border rounded-[94px] w-[500px] h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal ${
+            className={`px-4 border rounded-[94px] w-[500px] max-[1024px]:w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal ${
               error ? 'border-error' : 'border-gray-20'
             }`}
           />
@@ -114,12 +115,30 @@ export const ChangePassword: React.FC = () => {
           />
         </div>
       </div>
-      <button
-                className='w-full rounded-[120px] h-14 text-gray-20 text-[16px] font-medium mb-20 bg-primary cursor-pointer
-                '
-              >
-                Змінити Пароль
-              </button>
+        <div className="flex">
+          <button
+            className='w-full rounded-[120px] h-14 text-gray-20 text-[16px] font-medium mb-2 bg-primary cursor-pointer
+            '
+          >
+            Змінити Пароль
+          </button>
+        </div>
+
+      <Link to={'/registration/passrestoration'} className="text-[16px] text-gray-100 font-medium mb-6 border-b inline-block w-fit cursor-pointer">
+        Не пам&apos;ятаю пароль
+      </Link>
+
+      <div className="border border-success rounded-[8px] mb-14 flex flex-row items-center gap-4">
+            <img
+              src={success}
+              alt="success icon"
+              className='h-[32px] w-[32px] ml-2'
+            />
+            <div className='py-2 flex justify-between flex-col'>
+              <h4 className='text-gray-90 text-[20px] font-normal'>Успішно</h4>
+              <h5 className='text-gray-80 text-[16px] font-normal'>Пароль змінено</h5>
+            </div>
+          </div>
     </form>
   </>
   : (<ProfileNoLogin />);

@@ -4,12 +4,12 @@ import presentIcon from '../../image/Questions/present.png';
 
 export const Questions = () => {
   return (
-    <div className="grid grid-cols-6 mb-20 px-10">
+    <div className="grid grid-cols-6 mb-20 px-10 max-[1024px]:px-6 max-[1024px]:flex max-[1024px]:flex-col">
       <div className="col-start-2 col-span-5">
         <ul className="mb-8">
-          <li className="uppercase text-gray-100 text-[40px] font-medium leading-[110%] border-b border-gray-50 py-8 ">01 відповідайте на кілька запитань.</li>
-          <li className="uppercase text-gray-100 text-[40px] font-medium leading-[110%] border-b border-gray-50 py-8 ">02 отримуйте найкращі варіанти.</li>
-          <li className="uppercase text-gray-100 text-[40px] font-medium leading-[110%] border-b border-gray-50 py-8 ">03 замовляйте подарунок одразу.</li>
+          <li className="uppercase text-gray-100 text-[40px] max-[1024px]:text-[24px] font-medium leading-[110%] border-b border-gray-50 py-8 ">01 відповідайте на кілька запитань.</li>
+          <li className="uppercase text-gray-100 text-[40px] max-[1024px]:text-[24px] font-medium leading-[110%] border-b border-gray-50 py-8 ">02 отримуйте найкращі варіанти.</li>
+          <li className="uppercase text-gray-100 text-[40px] max-[1024px]:text-[24px] font-medium leading-[110%] border-b border-gray-50 py-8 ">03 замовляйте подарунок одразу.</li>
         </ul>
       </div>
 

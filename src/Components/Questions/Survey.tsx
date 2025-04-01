@@ -59,21 +59,24 @@ export const Survey = () => {
   };
 
   return (
-    <div className={`h-screen ${location.pathname === "/survey/result" ? "bg-white" : "bg-light-violet"}`}>
+    <div className="flex flex-col min-h-screen">
+      <div className={`flex-grow-1 ${location.pathname === "/survey/result" ? "bg-white" : "bg-light-violet"}`}>
 
-    <button
-      onClick={handleBack}
-      className="h-[40px] w-[40px] bg-center bg-cover cursor-pointer mt-10 ml-10 border border-gray-20 rounded-full"
-      style={{
-        backgroundImage: `url(${backButton})`
-      }}
-  />
+      <button
+        onClick={handleBack}
+        className="h-[40px] w-[40px] bg-center bg-cover cursor-pointer mt-10 ml-10 border border-gray-20 rounded-full"
+        style={{
+          backgroundImage: `url(${backButton})`
+        }}
+      />
 
-      <h1 
-        className={`uppercase mt-16 ml-10 text-[64px] font-bold ${location.pathname === "/survey/result" ? "hidden" : ""}`}>
-          Підібрати подарунок
-      </h1>
-      <Outlet context={{ answers, handleChange }} />
+        <h1 
+          className={`uppercase mt-16 max-[1024px]:mt-10 px-10 max-[1024px]:px-6 text-[64px] max-[1024px]:text-[32px] font-bold ${location.pathname === "/survey/result" ? "hidden" : ""}`}>
+            Підібрати подарунок
+        </h1>
+        <Outlet context={{ answers, handleChange }} />
+
+      </div>
       <Footer />
     </div>
   );

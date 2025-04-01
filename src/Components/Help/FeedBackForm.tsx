@@ -7,8 +7,11 @@ import clock from '../../image/icons/clock.png';
 export const FeedBackForm = () => {
   return (
     <div className=" px-10">
-      <h2 className="uppercase text-[64px] font-bold text-gray-100 mb-10 mt-16">Потрібна допомога?</h2>
-      <div className="grid grid-cols-5">
+      <h2 className="uppercase text-[64px] max-[1024px]:text-[32px] font-bold text-gray-100 mb-10 max-[1024px]:mb-8 mt-16 max-[1024px]:mt-10">
+        Потрібна допомога?
+      </h2>
+
+      <div className="grid grid-cols-5 max-[1024px]:flex max-[1024px]:flex-col-reverse">
         <form className="flex flex-col col-span-2">
           <div className='mb-6'>
             <h5 className="text-gray-90 text-[16px] font-normal mb-1">Ім’я</h5>
@@ -37,14 +40,14 @@ export const FeedBackForm = () => {
           </div>
 
           <button 
-            className='w-full rounded-[120px] h-14 text-gray-20 text-[16px] font-medium mb-20 bg-primary cursor-pointer'>
+            className='w-full rounded-[120px] h-14 text-gray-20 text-[16px] font-medium mb-20 max-[1024px]:mb-6 bg-primary cursor-pointer'>
               Надіслати
           </button>
         </form>
 
         <div className="flex flex-col col-span-2 col-start-4 justify-between">
-          <div className="border border-light-violet rounded-[16px]">
-            <h2 className='text-[32px] text-gray-90 font-medium px-4 pt-4 mb-8'>Наші контакти</h2>
+          <div className="border border-light-violet rounded-[16px] max-[1024px]:mb-10">
+            <h2 className='text-[32px] max-[1024px]:text-[24px] text-gray-90 font-medium px-4 pt-4 mb-8'>Наші контакти</h2>
             <div className='flex flex-col'>
               <div className='flex px-4 mb-6 gap-2 items-center'>
                 <img
@@ -54,7 +57,7 @@ export const FeedBackForm = () => {
                 />
                 <a 
                   href='mailto:email00@gmail.com'
-                  className='text-[20px] text-gray-80 font-normal'>email00@gmail.com</a>
+                  className='text-[20px] max-[1024px]:text-[16px] text-gray-80 font-normal'>email00@gmail.com</a>
               </div>
 
               <div className='flex px-4 mb-6 gap-2 items-center'>
@@ -65,7 +68,7 @@ export const FeedBackForm = () => {
                 />
                 <a 
                   href='tel:+380 50 343 578 '
-                  className='text-[20px] text-gray-80 font-normal'>+380 50 343 578 </a>
+                  className='text-[20px] max-[1024px]:text-[16px] text-gray-80 font-normal'>+380 50 343 578 </a>
               </div>
 
               <div className='flex px-4 mb-4 gap-2 items-center'>
@@ -75,13 +78,13 @@ export const FeedBackForm = () => {
                   className='h-[24px] w-[24px]'
                 />
                 <div
-                  className='text-[20px] text-gray-80 font-normal'>9:00-18:00</div>
+                  className='text-[20px] max-[1024px]:text-[16px] text-gray-80 font-normal'>9:00-18:00</div>
               </div>
 
             </div>
           </div>
 
-          <div className=" relative border border-success rounded-[8px] flex flex-row mb-20 items-center gap-4">
+          <div className="max-[1024px]:hidden relative border border-success rounded-[8px] flex flex-row mb-20 items-center gap-4">
             <img
               src={success}
               alt="success icon"
@@ -94,6 +97,19 @@ export const FeedBackForm = () => {
           </div>
         </div>
       </div>
+
+      <div className="relative border border-success rounded-[8px] flex flex-row mb-20 items-center gap-4">
+        <img
+          src={success}
+          alt="success icon"
+          className='h-[32px] w-[32px] ml-2'
+        />
+        <div className='py-2 flex justify-between flex-col'>
+          <h4 className='text-gray-90 text-[20px] font-normal'>Успішно</h4>
+          <h5 className='text-gray-80 text-[16px] font-normal'>Ваш запит надіслано</h5>
+        </div>
+      </div>
+
     </div>
   )
 }

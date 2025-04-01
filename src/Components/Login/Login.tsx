@@ -62,8 +62,8 @@ export const Login = () => {
   };
 
   return (
-    <div className='col-span-2 mt-20'>
-      <h1 className='uppercase text-gray-100 text-[64px] font-bold mb-16'>
+    <div className='flex-grow-1 col-span-2 mt-20'>
+      <h1 className='uppercase text-gray-100 text-[64px] font-bold mb-16 max-[1024px]:mt-40'>
         вхід
       </h1>
 
@@ -166,7 +166,7 @@ export const Login = () => {
       <div className='flex justify-end'>
         <Link
           to='/registration/signin'
-          className='border-b text-gray-100 text-[16px] font-medium'
+          className='border-b text-gray-100 text-[16px] font-medium max-[1024px]:mb-10h'
         >
           У мене немає аккаунта
         </Link>

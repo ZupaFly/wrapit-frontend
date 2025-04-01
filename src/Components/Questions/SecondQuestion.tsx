@@ -20,16 +20,21 @@ const navigate = useNavigate();
   }
 
   return (
-    <div className="grid grid-cols-5 gap-[24px] mt-10 ml-10 mr-10 mb-20">
+    <div className='grid grid-cols-5 gap-[24px] mt-10 px-10 max-[1024px]:px-6 pb-20 max-[1024px]:pb-4 max-[1024px]:flex max-[1024px]:w-full max-[1024px]:flex-col-reverse max-[1024px]:bg-light-violet'>
       <div className="flex flex-col gap-4 col-span-3 bg-white rounded-[32px] p-8">
         <div className="flex justify-between">
-          <h3 className="text-[32px]">{quest2.title}</h3>
-          <div>2 / 4</div>
+          <h3
+            className="text-[32px] max-[1024px]:text-[24px] text-gray-80">
+              {quest2.title}
+          </h3>
+          <div 
+            className="className='text-[16px] text-gray-80">
+              2/4
+          </div>
         </div>
 
-        {/* Виводимо опції, якщо вони є */}
         {quest2.values.map((value:string, index: number) => (
-          <label key={index} className="flex items-center text-[16px]">
+          <label key={index} className="flex items-center text-[16px] text-gray-80">
             <input
               type="radio"
               name="question2"
@@ -57,7 +62,7 @@ const navigate = useNavigate();
       </div>
 
       <div
-        className="bg-center bg-cover col-span-2 rounded-[32px]"
+        className='bg-center bg-cover max-[1024px]:w-full max-[1024px]:h-[160px] col-span-2 rounded-[32px]'
         style={{backgroundImage: `url(${quest2.image})`}}></div>
     </div>
   );

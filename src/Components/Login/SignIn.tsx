@@ -83,7 +83,8 @@ export const SignIn = () => {
         <><div className='text-green-600 text-[30px] w-full text-center py-4'>Реєстрація успішна!</div><div className='text-green-600 text-[16px] w-full text-center'>Перенаправляємо на сторінку входу...</div></>
       ) : (
         <div className="col-span-2 mt-20">
-          <h1 className="uppercase text-gray-100 text-[64px] font-bold mb-16">реєстрація</h1>
+          <h1 className="uppercase text-gray-100 text-[64px] font-bold mb-16
+          max-[1024px]:mt-40">реєстрація</h1>
           <form onSubmit={HandleFormSubmit}>
             <div className="mb-6">
               <h5 className="text-gray-90 text-[16px] font-normal mb-1">Ім&apos;я</h5>
@@ -183,7 +184,7 @@ export const SignIn = () => {
           </form>
 
           <div className="flex justify-end">
-            <Link to={'/registration/login'} className="border-b text-gray-100 text-[16px] font-medium">
+            <Link to={'/registration/login'} className="border-b text-gray-100 text-[16px] font-medium max-[1024px]:mb-10">
               Я вже маю аккаунт
             </Link>
           </div>

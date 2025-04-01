@@ -1,7 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import { useEffect, useState } from "react"
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import backButton from '../../image/survey-main/button/Button.png'
 
 type FormData = {
   id: number,
@@ -13,6 +14,7 @@ type FormData = {
 }
 
 export const ProfileMain = () => {
+  const navigate = useNavigate();
   const initialFormData: FormData = {
     id: 1,
     firstName: 'Dmytro',
@@ -25,7 +27,14 @@ export const ProfileMain = () => {
   const [idCheck, setIdCheck] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [linkCheck, setLinkCheck] = useState(1);
+  const [hideDisply, setHideDisplay] = useState(false);
   const hasChanges = JSON.stringify(formData) !== JSON.stringify(initialFormData);
+
+  function hideDisplayFunc () {
+    setHideDisplay(prev => {
+      return !prev;
+    });
+  }
 
   useEffect(() => {
     setIdCheck(Boolean(initialFormData.id)); 
@@ -35,42 +44,91 @@ export const ProfileMain = () => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleBack = () => {
+        navigate(-1);
+        hideDisplayFunc();
+    };
+
   return (
-    <div className="px-10 flex-grow-1">
-      <h2 className="uppercase mt-15 mb-10 text-gray-100 text-[64px] font-bold">кабінет</h2>
-        <div className="w-full flex flex-row gap-25">
-          <ul className="flex flex-col">
+    <div className="px-6 flex-grow-1">
+      <button
+        onClick={handleBack}
+        className={`h-[40px] w-[40px] bg-center bg-cover cursor-pointer mt-9 border border-gray-20 rounded-full
+          ${hideDisply
+            ? 'max-[1024px]:block'
+            : 'max-[1024px]:hidden'
+          }`}
+        style={{
+          backgroundImage: `url(${backButton})`
+        }}
+      />
+
+      <h2 className={`uppercase mt-15 max-[1024px]:mt-10 mb-10 text-gray-100 text-[64px] max-[1024px]:text-[32px] font-bold
+        ${hideDisply
+          ? 'max-[1024px]:hidden'
+          : 'max-[1024px]:block'
+        }`}>
+          кабінет
+        </h2>
+        <div className={`w-full flex flex-row gap-25
+          `}>
+          <ul className={`flex flex-col max-[1024px]:w-full
+            ${hideDisply
+              ? 'max-[1024px]:hidden'
+              : 'max-[1024px]:flex'
+               }`}>
             <Link 
               to={'./personalinfo'} 
               className="uppercase mb-4 text-gray-100 text-[14px] font-normal"
-              onClick={() => {setLinkCheck(1)}}
+              onClick={() => {
+                setLinkCheck(1);
+                hideDisplayFunc()}}
             >
-              особиста інформація
+              <div className="flex justify-between">
+                <h3>особиста інформація</h3>
+                <h3 className="lg:hidden">&gt;</h3>
+              </div>
+
             </Link>
             <Link 
               to={'./changepass'}
               className="uppercase mb-4 text-gray-100 text-[14px] font-normal"
-              onClick={() => {setLinkCheck(2)}}
+              onClick={() => {
+                setLinkCheck(2);
+                hideDisplayFunc()}}
             >
-              змінити пароль
+              <div className="flex justify-between">
+                <h3>змінити пароль</h3>
+                <h3 className="lg:hidden">&gt;</h3>
+              </div>
             </Link>
             <Link 
               to={'./chekorder'}
               className="uppercase mb-4 text-gray-100 text-[14px] font-normal"
-              onClick={() => {setLinkCheck(3)}}
+              onClick={() => {
+                setLinkCheck(3);
+                hideDisplayFunc()}}
             >
-                Замовлення
+                <div className="flex justify-between">
+                  <h3>замовлення</h3>
+                  <h3 className="lg:hidden">&gt;</h3>
+              </div>
             </Link>
             <Link
               to={'./logoff'}
               className="uppercase text-gray-100 text-[14px] font-normal"
-              onClick={() => {setLinkCheck(4)}}
+              onClick={() => {
+                setLinkCheck(4);
+                hideDisplayFunc()}}
             >
-              Вийти з кабінету
+                <div className="flex justify-between">
+                  <h3>Вийти з кабінету</h3>
+                  <h3 className="lg:hidden">&gt;</h3>
+              </div>
             </Link>
           </ul>
 
-          <Outlet context={{ hasChanges, formData, idCheck, linkCheck, handleFormChange }} />
+          <Outlet context={{ hasChanges, formData, idCheck, linkCheck, handleFormChange, hideDisplayFunc }} />
         </div>
       </div>
   )

@@ -20,7 +20,7 @@ export const PersonalInformation = () => {
   return idCheck && linkCheck === 1
   ?  
     <>
-      <form className="flex flex-col">
+      <form className="flex flex-col w-[500px] max-[1024px]:mt-10 max-[1024px]:w-full">
       <div className="mb-6">
         <h5 className="text-gray-90 text-[16px] font-normal mb-1">Ім&apos;я</h5>
           <input
@@ -30,7 +30,7 @@ export const PersonalInformation = () => {
             placeholder="Ім&apos;я"
             value={formData.firstName}
             onChange={handleFormChange}
-            className="px-4 border border-gray-20 rounded-[94px] w-[500px] h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
+            className="px-4 border border-gray-20 rounded-[94px] w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
           />
       </div>
 
@@ -56,7 +56,7 @@ export const PersonalInformation = () => {
             placeholder="Номер телефону"
             value={formData.phoneNumber}
             // onChange={handleFormChange}
-            className="px-4 border border-gray-20 rounded-[94px] w-[500px] h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
+            className="px-4 border border-gray-20 rounded-[94px] w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
           />
       </div>
 
@@ -66,7 +66,7 @@ export const PersonalInformation = () => {
             type="text"
             name="lastName"
             required
-            placeholder="Прізвище"
+            placeholder="Населений пункт"
             // value={formData.lastName}
             // onChange={handleFormChange}
             className="px-4 border border-gray-20 rounded-[94px] w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"

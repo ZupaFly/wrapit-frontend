@@ -8,8 +8,7 @@ import { Link, matchPath, useLocation } from 'react-router-dom';
 import { User } from '../../types/User';
 import { useEffect, useState } from 'react';
 import mobileButton from '../../image/header/mobile-button.png'
-
-import { PhoneNavigation } from './phoneNavigation';
+import { PhoneNavigation } from './PhoneNavigation';
 
 const user: User = {
   id: null,

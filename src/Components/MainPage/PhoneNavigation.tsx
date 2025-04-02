@@ -2,14 +2,10 @@ import { Link } from "react-router-dom"
 import mobileButtonClose from '../../image/header/mobile-button-close.png';
 import headerLogoBlack from '../../image/header/header-logo-black.png';
 import React from "react";
+import { User } from "../../types/User";
 
 type Props = {
-  user: {
-    id: number | null | undefined;
-    firstName: string | null | undefined;
-    phoneNumber: number | null | undefined;
-    lastName: string | null | undefined;
-  },
+  user: User,
   profileLink: string,
   buttonClick: boolean,
   handleButtonClick: () => void,

@@ -5,20 +5,16 @@ import headerLogo from '../../image/header/header-logo.svg';
 import userLogin from '../../image/header/user-login.png';
 import userSignIn from '../../image/icons/signin.png'
 import { Link, matchPath, useLocation } from 'react-router-dom';
-import { User } from '../../types/User';
 import { useEffect, useState } from 'react';
 import mobileButton from '../../image/header/mobile-button.png'
 import { PhoneNavigation } from './PhoneNavigation';
-
-const user: User = {
-  id: null,
-  firstName: 'Dima',
-  phoneNumber: 0,
-  lastName: ''
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 
 export const HeaderNav = () => {
+
+  const user = useSelector((state: RootState) => state.user);
   const location = useLocation();
   const [buttonClick, setButtonClick] = useState(false);
   const [homePage, setHomePage] = useState(location.pathname === '/');

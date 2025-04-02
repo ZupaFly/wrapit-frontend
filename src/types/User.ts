@@ -1,8 +1,7 @@
 export type User = {
-    id: number | null,
-    phoneNumber: number,
-    firstName: string,
-    lastName: string,
-    middleName?: string,
-    shippingAddress?: string
+  id: number,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  token?: string,
 }

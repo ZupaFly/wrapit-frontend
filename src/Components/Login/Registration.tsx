@@ -81,8 +81,8 @@ export const Registration = () => {
         </div>
   
         {!loginButton && (
-          <div className="absolute top-1/2 left-1/5 max-[1024px]:left-1/2 
-                          -translate-x-1/2 -translate-y-1/2 flex flex-col max-[1024px]:w-full max-[1024px]:px-4">
+          <div className="fixed top-1/2 left-1/5 max-[1024px]:left-1/2 
+                          -translate-x-1/2 -translate-y-1/2 flex flex-col max-[1024px]:w-full max-[1024px]:px-4 max-[1024px]:min-h-0 mb-10">
             <button 
               onClick={() => navigate('./signin')}
               className="bg-gray-60 rounded-[120px] h-15 w-100 max-[1024px]:w-full text-white mb-6 cursor-pointer hover:bg-primary">

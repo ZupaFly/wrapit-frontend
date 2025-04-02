@@ -35,6 +35,7 @@ export const Login = () => {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(false);
 
     try {
       const response = await fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/auth/login', {
@@ -51,8 +52,19 @@ export const Login = () => {
       }
 
       const data = await response.json();
-      dispatch(setUser(data))
-      navigate('*')
+      const userData = {
+        id: data.userId,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phoneNumber,
+        token: data.token
+      };
+  
+      localStorage.setItem('user', JSON.stringify(userData));
+  
+      dispatch(setUser(userData));
+
+      navigate('/', { replace: true })
 
       console.log(data);
     } catch (error) {

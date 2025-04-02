@@ -3,23 +3,17 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import backButton from '../../image/survey-main/button/Button.png'
-
-type FormData = {
-  id: number,
-  firstName: string,
-  lastName: string,
-  phoneNumber: string,
-  password: string,
-  repeatPassword: string,
-}
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 export const ProfileMain = () => {
+  const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
-  const initialFormData: FormData = {
-    id: 1,
-    firstName: 'Dmytro',
-    lastName: 'Loboda',
-    phoneNumber: '12345678',
+  const initialFormData = {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    phoneNumber: user.phone,
     password: '',
     repeatPassword: '',
   };

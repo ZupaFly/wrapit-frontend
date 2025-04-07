@@ -32,6 +32,8 @@ import { AddItem } from "./Components/AdminPage/AdminItems.tsx/AddItem";
 import { ChangeItem } from "./Components/AdminPage/AdminItems.tsx/ChageItem";
 import { RemoveItem } from "./Components/AdminPage/AdminItems.tsx/RemoveItem";
 import { AllItem } from "./Components/AdminPage/AdminItems.tsx/AllItems";
+import { AddCategory } from "./Components/AdminPage/Categories.tsx/AddCategory";
+import { AllCategories } from "./Components/AdminPage/Categories.tsx/AllCategories";
 
 export const Root = () => {
   return (
@@ -56,6 +58,8 @@ export const Root = () => {
                   <Route path="changeitem" element={<ChangeItem />} />
                   <Route path="deleteitem" element={<RemoveItem />} />
                   <Route path="listofitems" element={<AllItem />} />
+                  <Route path="createcategory" element={<AddCategory />} />
+                  <Route path="listofcategories" element={<AllCategories />} />
                 </Route>
               </Route>
             </Route>

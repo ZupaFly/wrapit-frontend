@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const initialAttributes = [
   'man', 'woman', 'kids', 'teenager', 'couple', 'boss', 'parents', 'friend',
@@ -13,20 +13,27 @@ const initialAttributes = [
 ];
 
 export const AddItem = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [itemData, setItemData] = useState({
-    name: "",
-    description: "",
-    price: "",
+    name: '',
+    description: '',
+    price: undefined as number | undefined,
     attributes: [] as string[],
     mainImageUrl: null as File | null,
+    categoriesId: ''
   });
 
   const [attributesList, setAttributesList] = useState(initialAttributes);
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setItemData({ ...itemData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setItemData((prev) => ({
+      ...prev,
+      [name]: name === "price" ? Number(value) || 0 : value,
+    }));
   };
+  
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -39,9 +46,8 @@ export const AddItem = () => {
   const handleAttributeClick = (attribute: string) => {
     setItemData((prev) => ({
       ...prev,
-      attributes: [...prev.attributes, attribute],
+      attributes: prev.attributes.includes(attribute) ? prev.attributes : [...prev.attributes, attribute],
     }));
-    setAttributesList((prev) => prev.filter((attr) => attr !== attribute));
   };
 
   const handleRemoveAttribute = (attribute: string) => {
@@ -51,6 +57,8 @@ export const AddItem = () => {
     }));
     setAttributesList((prev) => [...prev, attribute]);
   };
+
+  console.log(itemData);
 
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -63,12 +71,12 @@ export const AddItem = () => {
     const formData = new FormData();
     formData.append("name", itemData.name);
     formData.append("description", itemData.description);
-    formData.append("price", itemData.price);
+    formData.append("price", JSON.stringify(itemData.price)); // Передаємо як JSON-об'єкт
     formData.append("attributes", JSON.stringify(itemData.attributes));
-    formData.append("mainImageUrl", itemData.mainImageUrl);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+    formData.append("categoriesId", itemData.categoriesId);
+    
+    if (itemData.mainImageUrl) {
+      formData.append("mainImageUrl", itemData.mainImageUrl);
     }
 
     try {
@@ -121,14 +129,19 @@ export const AddItem = () => {
 
           <div>
             <h3 className="text-gray-90 text-[16px] font-normal mb-1">Ціна</h3>
-            <input
-              type="text"
-              required
-              name="price"
-              value={itemData.price}
-              onChange={handleFormChange}
-              className="px-4 border border-gray-20 rounded-[94px] w-[500px] h-10"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                required
+                name="price"
+                value={itemData.price}
+                onChange={handleFormChange}
+                className="px-4 pr-12 border border-gray-20 rounded-[94px] w-[500px] h-10"
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+                грн
+              </span>
+            </div>
           </div>
 
           <div>
@@ -151,10 +164,24 @@ export const AddItem = () => {
             <input
               type="file"
               accept="image/*"
+              ref={fileInputRef}
               required
               onChange={handleFileChange}
               className="px-4 py-1 border border-gray-20 rounded-[94px] w-[250px] h-10 cursor-pointer"
             />
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={() => {
+                setItemData((prev) => ({ ...prev, mainImageUrl: null }));
+                setPreview(null);
+                if (fileInputRef.current) {
+                  fileInputRef.current.value = "";
+                }
+              }}
+            >
+              X
+            </button>
           </div>
 
           <button
@@ -188,7 +215,7 @@ export const AddItem = () => {
           <img src={preview} alt="Прев'ю" className="rounded-[8px] w-100 h-100 object-cover" />}
           <div className="flex flex-row justify-between">
             <h3 className="text-gray-70">{itemData.name}</h3>
-            <h3 className="text-gray-90">{itemData.price}</h3>
+            {itemData.price && <h3 className="text-gray-90">{itemData.price} грн</h3>}
           </div>
         </div>
 
@@ -201,7 +228,7 @@ export const AddItem = () => {
               <h3 className="text-gray-70 text-[16px] font-normal">{itemData.description}</h3>
             </div>
             <div className="flex justify-end">
-              <h3 className="text-gray-100 text-[32px] font-medium">{itemData.price}</h3>
+              {itemData.price && <h3 className="text-gray-100 text-[32px] font-medium">{itemData.price} грн</h3>}
             </div>
           </div>
         </div>

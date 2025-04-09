@@ -30,6 +30,8 @@ export const AddCategory = () => {
     description: category.description.trim(),
   }
 
+  console.log(categoryRequest);
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -38,6 +40,7 @@ export const AddCategory = () => {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(categoryRequest),
       });

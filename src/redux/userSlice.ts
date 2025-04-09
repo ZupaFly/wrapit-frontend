@@ -4,7 +4,7 @@ interface UserState {
   id: number;
   firstName: string;
   lastName: string;
-  phone: string;
+  email: string;
   token: string;
 }
 
@@ -16,7 +16,7 @@ const initialState: UserState = storedUser
       id: '',
       firstName: '',
       lastName: '',
-      phone: '',
+      email: '',
       token: ''
     };
 
@@ -28,14 +28,14 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.phone = action.payload.phone;
+      state.email = action.payload.email;
       state.token = action.payload.token;
     },
     clearUser: (state) => {
       state.id = 0;
       state.firstName = '';
       state.lastName = '';
-      state.phone = '';
+      state.email = '';
       state.token = '';
     },
   },

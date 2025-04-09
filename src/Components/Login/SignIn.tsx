@@ -5,6 +5,7 @@ import showPass from '../../image/icons/showPassword.png';
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const [emailButtonSubmit, setEmailButtonSubmit] = useState(true);
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRetry, setShowPasswordRetry] = useState(false);
@@ -12,10 +13,46 @@ export const SignIn = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    phoneNumber: '',
+    email: '',
     password: '',
     repeatPassword: '',
+    code: '',
   });
+
+  console.log(formData);
+
+  const handleEmailButtonSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+  
+    if (!isValidEmail) {
+      setError(true);
+      setTimeout(() => setError(false), 4000);
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        `http://ec2-44-203-84-198.compute-1.amazonaws.com/auth/set-registration-email?email=${encodeURIComponent(formData.email.trim())}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'text/plain',
+          },
+        }
+      );
+
+      const data = await response.text();
+  
+      console.log('Реєстрація успішна! Отримані дані:', data);
+      setEmailButtonSubmit(false);
+    } catch (error) {
+      console.log('Помилка при надсиланні email:', error);
+      setError(true);
+      setTimeout(() => setError(false), 4000);
+    }
+  };
+  
 
   const checkFields = Object.values(formData).every(value => value.trim() !== '');
 
@@ -30,9 +67,10 @@ export const SignIn = () => {
   const registrationRequest = {
     firstName: formData.firstName.trim(),
     lastName: formData.lastName.trim(),
-    phoneNumber: formData.phoneNumber.replace(/\s+/g, '').trim(),
+    email: formData.email.trim(),
     password: formData.password,
     repeatPassword: formData.repeatPassword,
+    code: formData.code.trim(),
   };
 
   const HandleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,12 +117,55 @@ export const SignIn = () => {
 
   return (
     <>
-      {succes ? (
-        <><div className='text-green-600 text-[30px] w-full text-center py-4'>Реєстрація успішна!</div><div className='text-green-600 text-[16px] w-full text-center'>Перенаправляємо на сторінку входу...</div></>
+      {emailButtonSubmit 
+        ? (
+          <form
+            onSubmit={handleEmailButtonSubmit}
+            className="col-span-2 mt-20">
+            <h1 className="uppercase text-gray-100 text-[64px] font-bold mb-16
+            max-[1024px]:mt-40">реєстрація</h1>
+            <div className="mb-6">
+            <h5 className="text-gray-90 text-[16px] font-normal mb-1">Введіть ваш email</h5>
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleFormChange}
+              placeholder="username@gmail.com"
+              className="px-4 border border-gray-20 rounded-[94px] w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
+              />
+            </div>
+
+            <button
+              disabled={!formData.email.trim()}
+              className={`w-full rounded-[120px] h-14 text-gray-20 text-[16px] font-medium mb-6 ${
+                formData.email.trim() ? 'bg-primary cursor-pointer' : 'bg-gray-60 cursor-not-allowed'
+              }`}
+            >
+              Далі
+            </button>
+            {error && (
+              <div className="text-error mt-2 text-[14px]">
+                Введіть коректну email-адресу
+              </div>
+            )}
+          </form>
+          )
+        : succes ? (
+        <>
+          <div className='text-green-600 text-[30px] w-full text-center py-4'>
+            Реєстрація успішна!
+          </div>
+          <div className='text-green-600 text-[16px] w-full text-center'>
+            Перенаправляємо на сторінку входу...
+          </div>
+        </>
       ) : (
         <div className="col-span-2 mt-20">
-          <h1 className="uppercase text-gray-100 text-[64px] font-bold mb-16
+          <h1 className="uppercase text-gray-100 text-[64px] font-bold mb-2
           max-[1024px]:mt-40">реєстрація</h1>
+          <h5 className="text-green-700 text-[16px] font-normal mb-12">Код реєстрації вислано на вашу адресу {formData.email}</h5>
           <form onSubmit={HandleFormSubmit}>
             <div className="mb-6">
               <h5 className="text-gray-90 text-[16px] font-normal mb-1">Ім&apos;я</h5>
@@ -113,14 +194,14 @@ export const SignIn = () => {
             </div>
 
             <div className="mb-6">
-              <h5 className="text-gray-90 text-[16px] font-normal mb-1">Номер телефону</h5>
+              <h5 className="text-gray-90 text-[16px] font-normal mb-1">Код реєстрації</h5>
               <input
-                type="phone"
-                name="phoneNumber"
+                type="text"
+                name="code"
                 required
-                value={formData.phoneNumber}
+                value={formData.code}
                 onChange={handleFormChange}
-                placeholder="+380 00 000 00 00"
+                placeholder="Введіть код реєстрації"
                 className="px-4 border border-gray-20 rounded-[94px] w-full h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal"
               />
             </div>

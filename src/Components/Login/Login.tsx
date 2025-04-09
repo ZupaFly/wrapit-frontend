@@ -14,14 +14,16 @@ export const Login = () => {
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [userLogin, setUserLogin] = useState({
-    phoneNumber: '',
+    email: '',
     password: '',
   })
 
   const loginRequest = {
-    phoneNumber: userLogin.phoneNumber.replace(/\s+/g, '').trim(),
+    email: userLogin.email.trim(),
     password: userLogin.password,
   }
+
+  console.log(loginRequest);
 
   const buttonCheck = Object.values(userLogin).every(value => value.trim() !== '');
 
@@ -56,7 +58,7 @@ export const Login = () => {
         id: data.userId,
         firstName: data.firstName,
         lastName: data.lastName,
-        phone: data.phoneNumber,
+        email: data.email,
         token: data.token
       };
   
@@ -84,14 +86,14 @@ export const Login = () => {
         onSubmit={handleFormSubmit}>
         <div className='mb-6'>
           <h5 className='text-gray-90 text-[16px] font-normal mb-1'>
-            Номер телефону
+            Email
           </h5>
           <input 
-            type="phone"
-            name='phoneNumber'
+            type="email"
+            name='email'
             required 
-            placeholder='+380 00 000 00 00'
-            value={userLogin.phoneNumber}
+            placeholder='username@gmail.com'
+            value={userLogin.email}
             onChange={handleFieldChange}
             className='px-4 border border-gray-20 rounded-[94px] w-[100%] h-10 placeholder:text-gray-60 placeholder:text-[16px] placeholder:font-normal'
           />

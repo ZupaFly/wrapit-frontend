@@ -20,6 +20,8 @@ export const HeaderNav = () => {
   const [homePage, setHomePage] = useState(location.pathname === '/');
   const [profileLink, setProfileLink] = useState("/profile/personalinfo");
 
+  console.log(user);
+
   const isParentRoute = 
     location.pathname === '/' ||
     matchPath("/profile/", location.pathname) ||

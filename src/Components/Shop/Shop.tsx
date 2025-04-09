@@ -13,6 +13,7 @@ export const Shop = () => {
       </div>
         <div>hello {user.firstName}</div>
         <div>Here is you phone number: {user.email}</div>
+        <h1>ksjdfjbsdfkjhk bsdfjh sdjfh sdjfh ksjdhf ksjhd f</h1>
     </div>
   )
 }

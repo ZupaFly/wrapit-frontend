@@ -13,7 +13,7 @@ export const ProfileMain = () => {
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
-    phoneNumber: user.phone,
+    email: user.email,
     password: '',
     repeatPassword: '',
   };

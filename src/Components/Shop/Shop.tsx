@@ -12,7 +12,7 @@ export const Shop = () => {
         <button className="border rounded-[80px] h-11 w-50 cursor-pointer">Фільтри</button>
       </div>
         <div>hello {user.firstName}</div>
-        <div>Here is you phone number: {user.phone}</div>
+        <div>Here is you phone number: {user.email}</div>
     </div>
   )
 }

@@ -1,6 +1,29 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Card } from "../Card/Card";
+import { Product } from "../../types/Product";
+import { useEffect, useState } from "react";
 /* eslint-disable react/react-in-jsx-scope */
+
+const mockProducts: Product[] = [
+  {
+    id: 1,
+    title: "Майстер-клас з дайвінгу в м.Київ",
+    price: 2360,
+    image: "https://example.com/image1.jpg"
+  },
+  {
+    id: 2,
+    title: "Чашка з підігрівом Ember Smart Mug 2",
+    price: 3440,
+    image: "https://example.com/image2.jpg"
+  },
+  {
+    id: 3,
+    title: "В'язана іграшка свинка",
+    price: 430,
+    image: "https://example.com/image3.jpg"
+  },
+];
 
 type Props = {
   answers: { 
@@ -15,6 +38,23 @@ type Props = {
 export const SurveyResult = () => {
   const navigate = useNavigate();
   const { answers } = useOutletContext<Props>();
+    const [products, setProducts] = useState<Product[]>([]);
+
+     const fetchProducts = async () => {
+      
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      try {
+        setProducts(mockProducts);
+        
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    useEffect(() => {
+      fetchProducts();
+    }, []);
 
   return (
     <div className=" bg-white">
@@ -32,16 +72,15 @@ export const SurveyResult = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-6 gap-24 mx-10 mt-10 mb-16 max-[1024px]:mt-8 max-[1024px]:flex max-[1024px]:flex-col">
-        <div className="col-span-2">
-          <Card/>
-        </div>
-        <div className="col-span-2">
-        <Card/>
-        </div>
-        <div className="col-span-2">
-          <Card/>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-8 mx-10 mt-10 mb-16">
+        {products.map(product => (
+          <Card 
+            key={product.id}
+            title={product.title}
+            price={product.price}
+            image={product.image}
+          />
+        ))}
       </div>
 
       <button

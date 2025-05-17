@@ -14,10 +14,10 @@ type Props = {
 export const PhoneNavigation: React.FC<Props> = ({ handleButtonClick, profileLink, user, buttonClick }) => {
   return (
     <nav 
-      className={`m-0 p-0 fixed top-0 left-0 right-0 h-full bg-header-color transform transition-transform duration-300 
+    className={`m-0 p-0 fixed top-0 left-0 right-0 h-full bg-header-color transform transition-transform duration-300 z-50
       ${buttonClick 
-      ? `translate-x-0`
-      : `translate-x-full`
+        ? `translate-x-0`
+        : `translate-x-full`
       }`}>
       <img
         onClick={handleButtonClick}

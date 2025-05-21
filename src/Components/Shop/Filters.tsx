@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface FiltersType {
+export interface FiltersType {
   minPrice: number;
   maxPrice: number;
   categories: string[];
@@ -37,11 +37,11 @@ export const Filters = ({
   ];
 
   const toggleCategory = (category: string) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(selectedCategories.filter(c => c !== category));
-    } else {
-      setSelectedCategories([...selectedCategories, category]);
-    }
+    setSelectedCategories(prev =>
+      prev.includes(category)
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
   };
 
   const handleApply = () => {
@@ -111,4 +111,3 @@ export const Filters = ({
     </div>
   );
 };
-

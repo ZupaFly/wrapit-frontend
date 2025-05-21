@@ -1,139 +1,88 @@
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/store";
-import { Filters } from "./Filters";
+/* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
+import { Filters } from "./Filters";
 import { FiltersType, Product } from "../../types/Product";
+import { useSelector } from "react-redux";
+import { RootState } from '../../redux/store';
 
-const mockProducts: Product[] = [
-  {
-    id: 1,
-    title: "Майстер-клас з дайвінгу в м.Київ",
-    price: 2360,
-    image: "https://example.com/image1.jpg"
-  },
-  {
-    id: 2,
-    title: "Чашка з підігрівом Ember Smart Mug 2",
-    price: 3440,
-    image: "https://example.com/image2.jpg"
-  },
-  {
-    id: 3,
-    title: "В'язана іграшка свинка",
-    price: 430,
-    image: "https://example.com/image3.jpg"
-  },
-  {
-    id: 4,
-    title: "Майстер-клас з дайвінгу в м.Київ",
-    price: 2360,
-    image: "https://example.com/image1.jpg"
-  },
-  {
-    id: 5,
-    title: "Чашка з підігрівом Ember Smart Mug 2",
-    price: 3440,
-    image: "https://example.com/image2.jpg"
-  },
-  {
-    id: 6,
-    title: "В'язана іграшка свинка",
-    price: 430,
-    image: "https://example.com/image3.jpg"
-  },
-  {
-    id: 7,
-    title: "Майстер-клас з дайвінгу в м.Київ",
-    price: 2360,
-    image: "https://example.com/image1.jpg"
-  },
-  {
-    id: 8,
-    title: "Чашка з підігрівом Ember Smart Mug 2",
-    price: 3440,
-    image: "https://example.com/image2.jpg"
-  },
-  {
-    id: 9,
-    title: "В'язана іграшка свинка",
-    price: 430,
-    image: "https://example.com/image3.jpg"
-  },
-];
-
-/* eslint-disable react/react-in-jsx-scope */
 export const Shop = () => {
-  // const user = useSelector((state: RootState) => state.user);
   const [showFilters, setShowFilters] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const itemsPerPage = 6; // Загружаем по 6 товаров за раз
+  const [activeFilters, setActiveFilters] = useState<FiltersType | null>(null);
 
-  // const fetchProducts = async (currentPage: number, filters: FiltersType | null = null) => {
-  //   setIsLoading(true);
-  //   try {
-  //     let url = `....url`;
-      
-  //     if (filters) {
-  //       url += `&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}`;
-  //       if (filters.categories.length > 0) {
-  //         url += `&categories=${filters.categories.join(',')}`;
-  //       }
-  //     }
-  
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-      
-  //     if (!data.products) {
-  //       throw new Error('Invalid response format');
-  //     }
-      
-  //     if (currentPage === 1) {
-  //       setProducts(data.products);
-  //     } else {
-  //       setProducts(prev => [...prev, ...data.products]);
-  //     }
-      
-  //     setHasMore(data.hasMore ?? false);
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //     // Можно добавить уведомление для пользователя
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+  const itemsPerPage = 6;
 
-   const fetchProducts = async (currentPage: number, filters?: FiltersType) => {
+  const applyClientFilters = (items: Product[], filters: FiltersType | null): Product[] => {
+    if (!filters) return items;
+
+    return items.filter(item => {
+      const matchesCategory =
+        filters.categories.length === 0 || filters.categories.includes(item.category || "");
+
+      const matchesPrice =
+        (!filters.minPrice || item.price >= filters.minPrice) &&
+        (!filters.maxPrice || item.price <= filters.maxPrice);
+
+      return matchesCategory && matchesPrice;
+    });
+  };
+
+  const user = useSelector((state: RootState) => state.user);
+
+  const fetchProducts = async (
+    currentPage: number,
+    filters: FiltersType | null = null
+  ) => {
+    const token = user.token;
     setIsLoading(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
     try {
-      let filteredProducts = mockProducts;
-      
-      if (filters) {
-        filteredProducts = mockProducts.filter(product => {
-          const priceMatch = product.price >= filters.minPrice && product.price <= filters.maxPrice;
-          const categoryMatch = filters.categories.length === 0 || true;
-          return priceMatch && categoryMatch;
-        });
+      const sort = filters?.categories || [];
+  
+      const pageable = {
+        page: currentPage - 1,  // Note: API docs suggest page starts at 1
+        size: itemsPerPage,
+        sort: sort.join(', '),  // Convert array to comma-separated string
+      };
+  
+      const queryParams = new URLSearchParams();
+      queryParams.append('page', pageable.page.toString());
+      queryParams.append('size', pageable.size.toString());
+      if (pageable.sort) {
+        queryParams.append('sort', pageable.sort);
       }
-      
-      const startIdx = (currentPage - 1) * itemsPerPage;
-      const paginatedProducts = filteredProducts.slice(startIdx, startIdx + itemsPerPage);
-      
-      if (currentPage === 1) {
-        setProducts(paginatedProducts);
-      } else {
-        setProducts(prev => [...prev, ...paginatedProducts]);
+  
+      const url = `http://ec2-44-203-84-198.compute-1.amazonaws.com/items?${queryParams.toString()}`;
+  
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      setHasMore(startIdx + itemsPerPage < filteredProducts.length);
+  
+      const data = await response.json();
+  
+      if (!data.content) throw new Error("Invalid response format");
+  
+      const newItems = currentPage === 1
+        ? data.content
+        : [...products, ...data.content];
+  
+      setProducts(newItems);
+      setFilteredProducts(applyClientFilters(newItems, filters));
+      setHasMore(!data.last);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching products:", error);
+      // Optionally set some error state to show to the user
     } finally {
       setIsLoading(false);
     }
@@ -146,11 +95,12 @@ export const Shop = () => {
   const loadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
-    fetchProducts(nextPage);
+    fetchProducts(nextPage, activeFilters);
   };
 
   const handleApplyFilters = (filters: FiltersType) => {
     setPage(1);
+    setActiveFilters(filters);
     fetchProducts(1, filters);
     setShowFilters(false);
   };
@@ -170,12 +120,12 @@ export const Shop = () => {
       <div className={`flex ${showFilters ? 'gap-6' : ''} mt-8`}>
         <div className={`${showFilters ? 'w-2/3' : 'w-full'}`}>
           <div className={`grid grid-cols-1 sm:grid-cols-2 ${showFilters ? 'lg:grid-cols-2' : 'lg:grid-cols-3'} gap-8 mb-16`}>
-            {products.map(product => (
+            {filteredProducts.map(product => (
               <Card 
                 key={product.id}
-                title={product.title}
+                name={product.name}
                 price={product.price}
-                image={product.image}
+                mainImageUrl={product.mainImageUrl}
               />
             ))}
           </div>
@@ -204,4 +154,4 @@ export const Shop = () => {
       </div>
     </div>
   );
-}
+};

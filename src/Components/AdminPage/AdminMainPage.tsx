@@ -29,8 +29,6 @@ export const AdminMainPage = () => {
               }}
                 className="py-2">
                 <li><Link to="./createitem" className="block px-4 py-2 hover:bg-gray-200">Створити товар</Link></li>
-                <li><Link to="./changeitem" className="block px-4 py-2 hover:bg-gray-200">Змінити товар</Link></li>
-                <li><Link to="./deleteitem" className="block px-4 py-2 hover:bg-gray-200">Видалити товар</Link></li>
                 <li><Link to="./listofitems" className="block px-4 py-2 hover:bg-gray-200">Список товарів</Link></li>
               </ul>
             </div>
@@ -53,9 +51,7 @@ export const AdminMainPage = () => {
                   setCategoriesList(false);
                 }}
                 className="py-2">
-                <li><Link to="./createcategory" className="block px-4 py-2 hover:bg-gray-200">Створити категорію</Link></li>
-                <li><Link to="./changecategory" className="block px-4 py-2 hover:bg-gray-200">Змінити категорію</Link></li>
-                <li><Link to="./deletecategory" className="block px-4 py-2 hover:bg-gray-200">Видалити категорію</Link></li>
+                <li><Link to="./createcategory" className="block px-4 py-2 hover:bg-gray-200">Редагувати категорії</Link></li>
                 <li><Link to="./listofcategories" className="block px-4 py-2 hover:bg-gray-200">Список категорій</Link></li>
               </ul>
             </div>

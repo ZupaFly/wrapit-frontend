@@ -6,7 +6,7 @@ interface CardProps {
   price: number;
   mainImageUrl: string;
 }
-// add imgae to props
+
 export const Card: FC<CardProps> = ({ name, price, mainImageUrl }) => {
   return (
     <div className="flex flex-col gap-6 mb-6">

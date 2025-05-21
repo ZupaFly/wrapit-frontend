@@ -29,8 +29,6 @@ import { AdminPageAuth } from "./Components/AdminPage/AdminPageAuth";
 import { AdminMainPage } from "./Components/AdminPage/AdminMainPage";
 import { AdminAuthProvider } from "./Components/AdminPage/AdminAuthContext";
 import { AddItem } from "./Components/AdminPage/AdminItems.tsx/AddItem";
-import { ChangeItem } from "./Components/AdminPage/AdminItems.tsx/ChageItem";
-import { RemoveItem } from "./Components/AdminPage/AdminItems.tsx/RemoveItem";
 import { AllItem } from "./Components/AdminPage/AdminItems.tsx/AllItems";
 import { AddCategory } from "./Components/AdminPage/Categories.tsx/AddCategory";
 import { AllCategories } from "./Components/AdminPage/Categories.tsx/AllCategories";
@@ -55,8 +53,6 @@ export const Root = () => {
               <Route path="admin" element={<AdminPageAuth />}>
                 <Route path="adminmain" element={<AdminMainPage/>}>
                   <Route path="createitem" element={<AddItem />} />
-                  <Route path="changeitem" element={<ChangeItem />} />
-                  <Route path="deleteitem" element={<RemoveItem />} />
                   <Route path="listofitems" element={<AllItem />} />
                   <Route path="createcategory" element={<AddCategory />} />
                   <Route path="listofcategories" element={<AllCategories />} />

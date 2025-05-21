@@ -82,7 +82,6 @@ export const Shop = () => {
       setHasMore(!data.last);
     } catch (error) {
       console.error("Error fetching products:", error);
-      // Optionally set some error state to show to the user
     } finally {
       setIsLoading(false);
     }

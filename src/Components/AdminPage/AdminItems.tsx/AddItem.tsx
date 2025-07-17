@@ -399,14 +399,16 @@ export const AddItem = () => {
         {items.map((item) => (
           <div key={item.id} className="relative">
             <Card 
+            id={item.id}
               name={item.name} 
               price={item.price} 
               mainImageUrl={item.mainImageUrl} 
+              description={item.description}
             />
             <div className="flex gap-2 mt-2">
             <button
   onClick={() => {
-    console.log('Item to edit:', item); // Добавьте эту строку
+    console.log('Item to edit:', item);
     handleEditItem(item);
   }}
   className="px-3 py-1 bg-yellow-500 text-white rounded text-sm"

@@ -32,6 +32,8 @@ import { AddItem } from "./Components/AdminPage/AdminItems.tsx/AddItem";
 import { AllItem } from "./Components/AdminPage/AdminItems.tsx/AllItems";
 import { AddCategory } from "./Components/AdminPage/Categories.tsx/AddCategory";
 import { AllCategories } from "./Components/AdminPage/Categories.tsx/AllCategories";
+import { Cart } from "./Components/Cart/Cart";
+import { ProductPage } from "./Components/Card/ProductPage";
 
 export const Root = () => {
   return (
@@ -48,7 +50,9 @@ export const Root = () => {
                 <Route path="logoff" element={<ProfileLogOf />}/>
                 <Route path="errorLogin" element={<ProfileNoLogin />}/>
               </Route>
-              <Route path="shop" element={<Shop />}/>
+              <Route path="shop" element={<Shop />} />
+              <Route path="product/:id" element={<ProductPage />} />
+              <Route path="cart" element={<Cart />} />
               <Route path="feedback" element={<FeedBackForm />}/>
               <Route path="admin" element={<AdminPageAuth />}>
                 <Route path="adminmain" element={<AdminMainPage/>}>

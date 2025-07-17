@@ -72,7 +72,7 @@ export const peoplelist: PeopleList = {
     attributes: ['personal', 'impersonal', 'characters', 'unpersonalized'],
     values: [
       'Персоналізація (гравіювання, ініціали)',
-      'Без персоналізації ',
+      'Без персоналізації',
       'Пов\'язано з улюбленими героями',
       'Без персонажів'
     ],

@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react/react-in-jsx-scope */
+import { useState, useEffect } from "react";
 
 export interface FiltersType {
   minPrice: number;
@@ -6,41 +7,58 @@ export interface FiltersType {
   categories: string[];
 }
 
-/* eslint-disable react/react-in-jsx-scope */
 export const Filters = ({ 
   isVisible,
-  onApplyFilters
+  onApplyFilters,
+  initialFilters,
+  onResetFilters
 }: {
   isVisible: boolean;
   onApplyFilters: (filters: FiltersType) => void;
+  initialFilters?: FiltersType;
+  onResetFilters?: () => void;
 }) => {
-  const [minPrice, setMinPrice] = useState<number>(100);
-  const [maxPrice, setMaxPrice] = useState<number>(5000);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [minPrice, setMinPrice] = useState<number>(initialFilters?.minPrice || 100);
+  const [maxPrice, setMaxPrice] = useState<number>(initialFilters?.maxPrice || 5000);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialFilters?.categories || []);
 
-  const categories: string[] = [
-    "Тюмології",
-    "Книги",
-    "Спорт",
-    "Подорожі",
-    "Пеймінг",
-    "Настільні ігри",
-    "Творчість",
-    "Фотографія",
-    "Кулінарія",
-    "Догляд за собою",
-    "Без товари",
-    "Для дому",
-    "Для авто",
-    "Сертифікати",
-    "DIY-набори"
+  const categories = [
+    { ua: "Для чоловіків", en: "man" },
+    { ua: "Для жінок", en: "woman" },
+    { ua: "Для дітей", en: "kids" },
+    { ua: "Для підлітків", en: "teenager" },
+    { ua: "Для пар", en: "couple" },
+    { ua: "Для керівника", en: "boss" },
+    { ua: "Для батьків", en: "parents" },
+    { ua: "Для друга", en: "friend" },
+    { ua: "Персоналізовані", en: "personal" },
+    { ua: "Без персоналізації", en: "impersonal" },
+    { ua: "Персонажі", en: "characters" },
+    { ua: "Неперсоналізовані", en: "unpersonalized" },
+    { ua: "Свята", en: "holiday" },
+    { ua: "Універсальні", en: "universal" },
+    { ua: "Активний відпочинок", en: "active" },
+    { ua: "Для бізнесу", en: "business" },
+    { ua: "Творчість", en: "creative" },
+    { ua: "Для дому", en: "home" },
+    { ua: "Спорт", en: "sport" },
+    { ua: "Для авто", en: "cars" }
   ];
 
-  const toggleCategory = (category: string) => {
+  // Синхронизация с initialFilters
+  useEffect(() => {
+    if (initialFilters) {
+      setMinPrice(initialFilters.minPrice);
+      setMaxPrice(initialFilters.maxPrice);
+      setSelectedCategories(initialFilters.categories);
+    }
+  }, [initialFilters]);
+
+  const toggleCategory = (categoryEn: string) => {
     setSelectedCategories(prev =>
-      prev.includes(category)
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
+      prev.includes(categoryEn)
+        ? prev.filter(c => c !== categoryEn)
+        : [...prev, categoryEn]
     );
   };
 
@@ -50,6 +68,21 @@ export const Filters = ({
       maxPrice,
       categories: selectedCategories
     });
+  };
+
+  const handleReset = () => {
+    setSelectedCategories([]);
+    setMinPrice(100);
+    setMaxPrice(5000);
+    if (onResetFilters) {
+      onResetFilters();
+    } else {
+      onApplyFilters({
+        minPrice: 100,
+        maxPrice: 5000,
+        categories: []
+      });
+    }
   };
 
   if (!isVisible) return null;
@@ -85,29 +118,49 @@ export const Filters = ({
       </div>
       
       <div className="mb-6">
-        <h4 className="font-medium mb-2">Категорія</h4>
-        <div className="space-y-2">
+        <div className="flex justify-between items-center mb-2">
+          <h4 className="font-medium">Категорія</h4>
+          {selectedCategories.length > 0 && (
+            <button 
+              onClick={handleReset}
+              className="text-sm text-blue-500 hover:text-blue-700"
+            >
+              Скасувати всі
+            </button>
+          )}
+        </div>
+        <div className="space-y-2 max-h-[300px] overflow-y-auto">
           {categories.map((category) => (
-            <div key={category} className="flex items-center">
+            <div key={category.en} className="flex items-center">
               <input
                 type="checkbox"
-                id={category}
-                checked={selectedCategories.includes(category)}
-                onChange={() => toggleCategory(category)}
+                id={category.en}
+                checked={selectedCategories.includes(category.en)}
+                onChange={() => toggleCategory(category.en)}
                 className="mr-2"
               />
-              <label htmlFor={category}>{category}</label>
+              <label htmlFor={category.en} className="cursor-pointer">
+                {category.ua}
+              </label>
             </div>
           ))}
         </div>
       </div>
       
-      <button 
-        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-        onClick={handleApply}
-      >
-        Застосувати
-      </button>
+      <div className="flex space-x-2">
+        <button 
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors"
+          onClick={handleApply}
+        >
+          Застосувати
+        </button>
+        <button 
+          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded transition-colors"
+          onClick={handleReset}
+        >
+          Скинути
+        </button>
+      </div>
     </div>
   );
 };

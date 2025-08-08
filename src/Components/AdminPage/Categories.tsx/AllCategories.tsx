@@ -20,7 +20,7 @@ export const AllCategories = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://ec2-44-203-84-198.compute-1.amazonaws.com/categories?page=${pageInfo.currentPage}&size=10`,
+          `http://ec2-44-203-84-198.compute-1.amazonaws.com/categories?page=${pageInfo.currentPage}&size=1000`,
           {
             method: 'GET',
             headers: {
@@ -73,8 +73,9 @@ export const AllCategories = () => {
       <div className="space-y-4 mb-4">
         {categories.map((item) => (
           <div key={item.id} className="p-4 border border-gray-200 rounded-lg shadow-md">
-            <h4>{item.name}</h4>
-            <p className="text-gray-600">{item.description}</p>
+            <h4>Item ID: {item.id}</h4>
+            <h4>Item name: {item.name}</h4>
+            <p className="text-gray-600">Item description: {item.description}</p>
           </div>
         ))}
       </div>

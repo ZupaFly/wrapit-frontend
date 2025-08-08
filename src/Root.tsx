@@ -34,6 +34,9 @@ import { AddCategory } from "./Components/AdminPage/Categories.tsx/AddCategory";
 import { AllCategories } from "./Components/AdminPage/Categories.tsx/AllCategories";
 import { Cart } from "./Components/Cart/Cart";
 import { ProductPage } from "./Components/Card/ProductPage";
+import { Order } from "./Components/Cart/Order";
+import { FeedbackList } from "./Components/AdminPage/Feedback/Feedbacklist";
+import { Review } from "./Components/Cart/Review";
 
 export const Root = () => {
   return (
@@ -53,6 +56,8 @@ export const Root = () => {
               <Route path="shop" element={<Shop />} />
               <Route path="product/:id" element={<ProductPage />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="order" element={<Order />} />
+              <Route path="review/:id" element={<Review />} />
               <Route path="feedback" element={<FeedBackForm />}/>
               <Route path="admin" element={<AdminPageAuth />}>
                 <Route path="adminmain" element={<AdminMainPage/>}>
@@ -60,6 +65,7 @@ export const Root = () => {
                   <Route path="listofitems" element={<AllItem />} />
                   <Route path="createcategory" element={<AddCategory />} />
                   <Route path="listofcategories" element={<AllCategories />} />
+                  <Route path="feedbacklist" element={<FeedbackList />} />
                 </Route>
               </Route>
             </Route>

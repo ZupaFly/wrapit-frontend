@@ -21,9 +21,14 @@ interface CartItem {
 
 export const Card: FC<CardProps> = ({ id, name, price, description, mainImageUrl }) => {
   const navigate = useNavigate();
+  // const user = useSelector((state: RootState) => state.user);
+
+  // console.log(user);
+  // const token = user.token;
+  // const isLoggedIn = Boolean(user.id && token);
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // Зупиняємо подію переходу по картці
+    e.stopPropagation();
 
     const existingCart = localStorage.getItem("cart");
     const cart: CartItem[] = existingCart ? JSON.parse(existingCart) : [];

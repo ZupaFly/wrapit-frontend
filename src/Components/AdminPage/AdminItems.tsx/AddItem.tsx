@@ -46,11 +46,21 @@ export const AddItem = () => {
 
       setLoading(true);
       try {
+        const requestBody = {
+          categoryIds: [],
+          page: 0,
+          size: 100,
+        };
         const [itemsResponse, categoriesResponse] = await Promise.all([
           fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/items?size=100', {
-            headers: { 'Authorization': `Bearer ${token}` },
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(requestBody),
           }),
-          fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/categories', {
+          fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/categories?page=0&size=10000', {
             headers: { 'Authorization': `Bearer ${token}` },
           }),
         ]);
@@ -173,7 +183,7 @@ export const AddItem = () => {
           body: JSON.stringify(payload),
         });
       } else {
-        response = await fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/items', {
+        response = await fetch('http://ec2-44-203-84-198.compute-1.amazonaws.com/items/create', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,

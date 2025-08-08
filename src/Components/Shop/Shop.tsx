@@ -15,91 +15,106 @@ export const Shop = () => {
   const [hasMore, setHasMore] = useState(true);
   const [activeFilters, setActiveFilters] = useState<FiltersType>({
     minPrice: 100,
-    maxPrice: 5000,
+    maxPrice: 10000,
     categories: []
   });
+  const [sortOption, setSortOption] = useState<string>("");
+  const [categoryMap, setCategoryMap] = useState<Record<string, number>>({});
 
-  const itemsPerPage = 7;
-
-  const applyClientFilters = (items: Product[], filters: FiltersType): Product[] => {
-    return items.filter(item => {
-      const matchesCategory =
-        filters.categories.length === 0 || 
-        (item.category && filters.categories.includes(item.category));
-
-      const matchesPrice =
-        item.price >= (filters.minPrice || 0) &&
-        item.price <= (filters.maxPrice || Infinity);
-
-      return matchesCategory && matchesPrice;
-    });
-  };
-
+  const itemsPerPage = 6;
   const user = useSelector((state: RootState) => state.user);
 
-  const fetchProducts = async (
-    currentPage: number,
-    filters: FiltersType = activeFilters
-  ) => {
-    const token = user.token;
-    setIsLoading(true);
+  const fetchCategories = async () => {
     try {
-      const queryParams = new URLSearchParams({
-        page: (currentPage - 1).toString(),
-        size: itemsPerPage.toString(),
-      });
-
-      filters.categories.forEach(category => {
-        queryParams.append('category', category);
-      });
-
-      if (filters.minPrice) {
-        queryParams.append('minPrice', filters.minPrice.toString());
-      }
-      if (filters.maxPrice) {
-        queryParams.append('maxPrice', filters.maxPrice.toString());
-      }
-
-      const url = `http://ec2-44-203-84-198.compute-1.amazonaws.com/items?${queryParams.toString()}`;
-
-      const response = await fetch(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      const response = await fetch("http://ec2-44-203-84-198.compute-1.amazonaws.com/categories?pageable.page=0&pageable.size=1000");
       const data = await response.json();
-
-      if (!data.content) throw new Error("Invalid response format");
-
-      const newItems = currentPage === 1
-        ? data.content
-        : [...products, ...data.content];
-
-      setProducts(newItems);
-      setFilteredProducts(applyClientFilters(newItems, filters));
-      setHasMore(!data.last);
-      console.log("Продукти з бекенду:", data.content);
+      const map: Record<string, number> = {};
+      data.content.forEach((category: { id: number; name: string }) => {
+        map[category.name] = category.id;
+      });
+      setCategoryMap(map);
     } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Error fetching categories:", error);
     }
   };
 
+  const fetchProducts = async (
+  currentPage: number,
+  filters: FiltersType = activeFilters,
+  sort: string = sortOption
+) => {
+  const token = user.token;
+  if (!token) return;
+  setIsLoading(true);
+
+  try {
+    const sortParams: string[] = [];
+
+    const categoryIds = filters.categories
+      .map(name => categoryMap[name])
+      .filter((id): id is number => id !== undefined);
+
+    if (sort) {
+      sortParams.push(sort);
+    }
+
+    const requestBody = {
+      categoryIds,
+      page: currentPage - 1,
+      size: itemsPerPage,
+      sort: sortParams,
+    };
+
+    const queryParams = new URLSearchParams({
+      minPrice: filters.minPrice.toString(),
+      maxPrice: filters.maxPrice.toString(),
+    });
+
+    const url = `http://ec2-44-203-84-198.compute-1.amazonaws.com/items?${queryParams.toString()}`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.content) throw new Error("Invalid response format");
+
+    const newItems = currentPage === 1
+      ? data.content
+      : [...products, ...data.content];
+
+    setProducts(newItems);
+    setFilteredProducts(newItems);
+    setHasMore(!data.last);
+
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
   useEffect(() => {
-    fetchProducts(1);
+    fetchCategories().then(() => {
+      fetchProducts(1);
+    });
   }, []);
 
   const loadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
-    fetchProducts(nextPage);
+    fetchProducts(nextPage, activeFilters, sortOption);
   };
 
   const handleApplyFilters = (filters: FiltersType) => {
@@ -112,24 +127,45 @@ export const Shop = () => {
   const handleResetFilters = () => {
     const defaultFilters = {
       minPrice: 100,
-      maxPrice: 5000,
+      maxPrice: 10000,
       categories: []
     };
     setPage(1);
     setActiveFilters(defaultFilters);
+    setSortOption("");
     fetchProducts(1, defaultFilters);
+  };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSortOption(value);
+    setPage(1);
+    fetchProducts(1, activeFilters, value);
   };
 
   return (
     <div className='flex-grow px-10 relative min-h-screen mb-20'>
       <div className="flex mt-16 justify-between items-center">
         <h2 className="text-[64px] uppercase font-bold text-gray-100">магазин</h2>
-        <button 
-          className="border rounded-[80px] h-11 w-50 cursor-pointer"
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          Фільтри
-        </button>
+        <div className="flex gap-4">
+          <select 
+            onChange={handleSortChange}
+            value={sortOption}
+            className="border rounded-[80px] h-11 px-4 cursor-pointer bg-white"
+          >
+            <option value="">Сортування</option>
+            <option value="price,asc">Ціна (зростання)</option>
+            <option value="price,desc">Ціна (спадання)</option>
+            <option value="name,asc">Назва (А-Я)</option>
+            <option value="name,desc">Назва (Я-А)</option>
+          </select>
+          <button 
+            className="border rounded-[80px] h-11 px-4 cursor-pointer"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            Фільтри
+          </button>
+        </div>
       </div>
 
       <div className={`flex ${showFilters ? 'gap-6' : ''} mt-8`}>

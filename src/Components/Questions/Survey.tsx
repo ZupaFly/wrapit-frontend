@@ -19,6 +19,8 @@ export const Survey = () => {
     };
   });
 
+  console.log(answers);
+
   useEffect(() => {
     if (location.pathname.endsWith("/survey")) {
       navigate("/survey/1", { replace: true });

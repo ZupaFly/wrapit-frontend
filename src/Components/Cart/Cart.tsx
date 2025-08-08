@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react';
 import closeButton from '../../image/icons/Close_Button.png';
+import { Link } from 'react-router-dom';
 
 interface CartItem {
   id: number;
@@ -45,7 +46,8 @@ export const Cart = () => {
       const res = await fetch(`http://ec2-44-203-84-198.compute-1.amazonaws.com/items/${itemId.toString()}`);
       if (!res.ok) throw new Error('Помилка при отриманні товару');
       const item = await res.json();
-      console.log(item);
+
+      console.log("Продукт у кошику:",item);
       return item.quantity >= desiredQuantity;
     } catch (error) {
       console.error('Помилка перевірки кількості:', error);
@@ -144,13 +146,11 @@ export const Cart = () => {
               </div>
             </div>
             <div className='flex flex-col w-120 p-4'>
-              <button
-                  onClick={handleClearCart}
-                  className="bg-primary text-white h-12 px-8 rounded-[80px] cursor-pointer hover:bg-gray-800 transition mb-10"
-                  disabled={loading}
+              <Link to='/order'
+                  className="flex items-center justify-center bg-primary text-white h-12 px-8 rounded-[80px] cursor-pointer hover:bg-gray-800 transition mb-10 text-center"
                 >
                   Оформити замовлення
-              </button>
+              </Link>
               <button
                 onClick={handleClearCart}
                 className="bg-error text-white h-12 px-8 rounded-[80px] cursor-pointer hover:bg-gray-800 transition mb-10"

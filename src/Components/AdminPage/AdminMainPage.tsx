@@ -56,6 +56,9 @@ export const AdminMainPage = () => {
               </ul>
             </div>
           )}
+          <Link
+            className="uppercase py-2 text-gray-100 text-[14px] font-normal cursor-pointer"
+            to='feedbacklist'>ЗВОРОТНІЙ ЗВ&apos;ЯЗОК</Link>
         </ul>
 
         <div className="flex-grow">

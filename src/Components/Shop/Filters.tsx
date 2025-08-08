@@ -19,7 +19,7 @@ export const Filters = ({
   onResetFilters?: () => void;
 }) => {
   const [minPrice, setMinPrice] = useState<number>(initialFilters?.minPrice || 100);
-  const [maxPrice, setMaxPrice] = useState<number>(initialFilters?.maxPrice || 5000);
+  const [maxPrice, setMaxPrice] = useState<number>(initialFilters?.maxPrice || 10000);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(initialFilters?.categories || []);
 
   const categories = [
@@ -45,7 +45,6 @@ export const Filters = ({
     { ua: "Для авто", en: "cars" }
   ];
 
-  // Синхронизация с initialFilters
   useEffect(() => {
     if (initialFilters) {
       setMinPrice(initialFilters.minPrice);
@@ -73,13 +72,13 @@ export const Filters = ({
   const handleReset = () => {
     setSelectedCategories([]);
     setMinPrice(100);
-    setMaxPrice(5000);
+    setMaxPrice(10000);
     if (onResetFilters) {
       onResetFilters();
     } else {
       onApplyFilters({
         minPrice: 100,
-        maxPrice: 5000,
+        maxPrice: 10000,
         categories: []
       });
     }
@@ -101,7 +100,7 @@ export const Filters = ({
           <input
             type="range"
             min="100"
-            max="5000"
+            max="10000"
             value={minPrice}
             onChange={(e) => setMinPrice(parseInt(e.target.value))}
             className="w-full"
@@ -109,7 +108,7 @@ export const Filters = ({
           <input
             type="range"
             min="100"
-            max="5000"
+            max="10000"
             value={maxPrice}
             onChange={(e) => setMaxPrice(parseInt(e.target.value))}
             className="w-full"
